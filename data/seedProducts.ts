@@ -1,0 +1,41 @@
+export const products = [
+  {
+    id: "prod_1",
+    name: "Essential Black T‑Shirt",
+    price: 3999,
+    salePrice: null,
+    sku: "EBT‑001",
+    images: ["/products/essential-1.jpg", "/products/essential-2.jpg"],
+    colours: ["#000000"],
+    sizes: ["S", "M", "L", "XL"],
+    description:
+      "Pure cotton, ultra‑soft, cut for a clean silhouette. A wardrobe staple that never fades.",
+    tags: ["essential", "t‑shirt", "black"],
+    category: "Essential T‑Shirts",
+    collection: "Basics",
+    isNew: true,
+    isBestSeller: false,
+    isFeatured: true,
+    stock: 120,
+  },
+  {
+    id: "prod_2",
+    name: "Oversized Black Tee",
+    price: 4999,
+    salePrice: 3999,
+    sku: "OBT‑001",
+    images: ["/products/oversized-1.jpg", "/products/oversized-2.jpg"],
+    colours: ["#000000"],
+    sizes: ["M", "L", "XL"],
+    description:
+      "Relaxed fit, double‑stitched hems, and a slightly longer length for a contemporary edge.",
+    tags: ["oversized", "t‑shirt"],
+    category: "Oversized T‑Shirts",
+    collection: "New Arrivals",
+    isNew: true,
+    isBestSeller: true,
+    isFeatured: false,
+    stock: 75,
+  },
+  // Add more seed products as needed
+];
