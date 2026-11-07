@@ -224,7 +224,7 @@ export default function AccountPage() {
       <div className="border-b border-white/10 bg-black/40 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <span className="text-[10px] uppercase tracking-[0.25em] text-emerald-400 font-mono">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-mono">
               Verified Patron
             </span>
             <h1 className="text-3xl font-serif font-bold">{fullName || email}</h1>
@@ -233,7 +233,7 @@ export default function AccountPage() {
 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold hover:bg-white/10 transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 border border-white/20 text-xs font-semibold uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>
@@ -315,10 +315,10 @@ export default function AccountPage() {
                           {new Date(ord.createdAt).toLocaleDateString()}
                         </span>
                         <span
-                          className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider ${
+                          className={`px-3 py-1 text-[10px] font-semibold uppercase tracking-widest ${
                             ord.status === "Delivered"
-                              ? "bg-emerald-950 text-emerald-400 border border-emerald-500/30"
-                              : "bg-blue-950 text-blue-400 border border-blue-500/30"
+                              ? "bg-white text-black"
+                              : "bg-white/10 text-white border border-white/20"
                           }`}
                         >
                           {ord.status}
@@ -349,7 +349,7 @@ export default function AccountPage() {
                       </div>
                       <div className="flex items-center gap-2 font-semibold">
                         <span>Total (COD):</span>
-                        <span className="text-emerald-400 text-sm font-bold">
+                        <span className="text-white text-sm font-bold">
                           {formatPKR(ord.total)}
                         </span>
                       </div>

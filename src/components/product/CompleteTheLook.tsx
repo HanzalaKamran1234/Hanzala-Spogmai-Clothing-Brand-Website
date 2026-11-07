@@ -36,12 +36,12 @@ export function CompleteTheLook({ currentProduct, allProducts }: CompleteTheLook
   return (
     <div className="mt-16 pt-12 border-t border-white/10">
       <div className="flex items-center gap-2 mb-2">
-        <Sparkles className="w-4 h-4 text-emerald-400" />
-        <span className="text-xs uppercase tracking-widest text-emerald-400 font-medium">
-          Curated Sartorial Ensemble
+        <Sparkles className="w-3.5 h-3.5 text-white/80" />
+        <span className="text-[11px] uppercase tracking-widest text-neutral-400 font-medium">
+          Curated Ensemble
         </span>
       </div>
-      <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight mb-2">
+      <h3 className="text-xl sm:text-2xl font-serif text-white tracking-wide mb-2">
         Complete The Look
       </h3>
       <p className="text-xs text-neutral-400 mb-6 font-light">
@@ -54,9 +54,9 @@ export function CompleteTheLook({ currentProduct, allProducts }: CompleteTheLook
           return (
             <div
               key={item.id}
-              className="group bg-white/5 border border-white/10 rounded-2xl p-4 flex gap-4 items-center hover:border-white/20 transition-all"
+              className="group bg-neutral-900/50 border border-white/10 p-4 flex gap-4 items-center hover:border-white/20 transition-all"
             >
-              <div className="relative w-20 h-24 rounded-xl overflow-hidden bg-neutral-900 flex-shrink-0">
+              <div className="relative w-20 h-24 overflow-hidden bg-neutral-900 flex-shrink-0">
                 <Image
                   src={item.images[0] || ""}
                   alt={item.name}
@@ -66,25 +66,25 @@ export function CompleteTheLook({ currentProduct, allProducts }: CompleteTheLook
               </div>
 
               <div className="flex-1 min-w-0">
-                <span className="text-[10px] uppercase tracking-wider text-white/50 block truncate">
+                <span className="text-[10px] uppercase tracking-widest text-white/50 block truncate">
                   {item.category}
                 </span>
                 <Link
                   href={`/product/${item.id}`}
-                  className="text-sm font-medium text-white hover:text-emerald-400 transition-colors block truncate"
+                  className="text-sm font-serif text-white hover:text-neutral-300 transition-colors block truncate"
                 >
                   {item.name}
                 </Link>
-                <div className="text-xs text-white/90 font-semibold mt-1">
+                <div className="text-xs text-white/90 font-medium mt-1">
                   PKR {item.price.toLocaleString()}
                 </div>
 
                 <button
                   onClick={() => handleAddPairing(item)}
                   disabled={isAdded}
-                  className={`mt-2.5 px-3 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider flex items-center gap-1.5 transition-all ${
+                  className={`mt-2.5 px-3 py-1.5 text-xs font-medium uppercase tracking-widest flex items-center gap-1.5 transition-all ${
                     isAdded
-                      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                      ? "bg-white/20 text-white border border-white/30"
                       : "bg-white text-black hover:bg-neutral-200"
                   }`}
                 >

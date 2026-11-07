@@ -126,8 +126,8 @@ export default function FAQPage() {
         </div>
 
         {/* Still Have Questions CTA */}
-        <div className="mt-16 p-8 rounded-3xl bg-white/5 border border-white/10 text-center space-y-4">
-          <h3 className="text-xl font-serif font-bold text-white">Have a Bespoke Measurement Question?</h3>
+        <div className="mt-16 p-8 bg-neutral-900 border border-white/10 text-center space-y-4">
+          <h3 className="text-xl font-serif font-semibold text-white">Have a Bespoke Measurement Question?</h3>
           <p className="text-xs text-neutral-400 max-w-md mx-auto">
             Our master tailor is active daily on WhatsApp (+92 370 0349146) to advise on fitting, event dates, and fabric selections.
           </p>
@@ -135,7 +135,7 @@ export default function FAQPage() {
             href="https://wa.me/923700349146"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-widest rounded-full transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-neutral-200 text-black font-semibold text-xs uppercase tracking-widest transition-all"
           >
             <MessageCircle className="w-4 h-4" />
             <span>Chat on WhatsApp (+92 370 0349146)</span>

@@ -1,25 +1,23 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { Sparkles, Truck, ShieldCheck } from "lucide-react";
 
 export function AnnouncementBar() {
   const announcements = [
-    "COMPLIMENTARY EXPRESS DELIVERY NATIONWIDE ON ORDERS OVER PKR 5,000",
+    "SPOGMAI • WEAR THE LEGACY",
+    "COMPLIMENTARY WHITE-GLOVE EXPRESS DISPATCH NATIONWIDE",
     "CASH ON DELIVERY (COD) AVAILABLE ACROSS PAKISTAN",
-    "AUTUMN/WINTER '26: NOCTURNE HAUTE COLLECTION NOW LIVE",
-    "HANDCRAFTED LUXURY TAILORING & BESPOKE ATELIER SERVICES",
-    "14-DAY HASSLE-FREE RETURN & EXCHANGE GUARANTEE"
+    "ATELIER: RJ SHOPPING MALL, GULSHAN-E-JAMAL, SHOP LG-81",
+    "LIMITED EDITION HEIRLOOM MENSWEAR CUTS",
   ];
 
   return (
-    <div className="relative bg-black border-b border-white/10 text-white/80 py-2.5 overflow-hidden text-[11px] uppercase tracking-[0.2em] select-none z-40">
-      <div className="flex w-fit whitespace-nowrap animate-marquee items-center gap-10">
-        {[...announcements, ...announcements].map((item, idx) => (
-          <div key={idx} className="flex items-center gap-3">
-            <span className="inline-block w-1 h-1 rounded-full bg-white/60"></span>
-            <span>{item}</span>
+    <div className="relative bg-[#000000] border-b border-white/10 text-white/80 py-2.5 overflow-hidden text-[10px] uppercase tracking-[0.25em] select-none z-40">
+      <div className="flex w-fit whitespace-nowrap animate-marquee items-center gap-12">
+        {[...announcements, ...announcements, ...announcements].map((item, idx) => (
+          <div key={idx} className="flex items-center gap-4">
+            <span className="inline-block w-1 h-1 bg-white/50"></span>
+            <span className="font-medium">{item}</span>
           </div>
         ))}
       </div>

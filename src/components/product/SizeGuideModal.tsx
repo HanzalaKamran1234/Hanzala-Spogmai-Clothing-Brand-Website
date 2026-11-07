@@ -63,14 +63,14 @@ export function SizeGuideModal({ isOpen, onClose, category = "Formal Wear" }: Si
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white">
-            <Ruler className="w-5 h-5 text-emerald-400" />
+          <div className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center text-white">
+            <Ruler className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-light tracking-wide text-white">
+            <h2 className="text-xl font-serif tracking-wide text-white">
               Sartorial Measurement & Size Guide
             </h2>
-            <p className="text-xs text-white/50 tracking-wider uppercase">
+            <p className="text-xs text-white/50 tracking-widest uppercase">
               Bespoke Proportions for Men ({category})
             </p>
           </div>
@@ -81,9 +81,9 @@ export function SizeGuideModal({ isOpen, onClose, category = "Formal Wear" }: Si
           <div className="flex gap-2">
             <button
               onClick={() => setActiveTab("chart")}
-              className={`px-4 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider transition-all ${
+              className={`px-4 py-1.5 text-xs font-medium uppercase tracking-widest transition-all ${
                 activeTab === "chart"
-                  ? "bg-white text-black font-semibold shadow-lg"
+                  ? "bg-white text-black font-semibold"
                   : "text-white/60 hover:text-white hover:bg-white/5"
               }`}
             >
@@ -91,13 +91,13 @@ export function SizeGuideModal({ isOpen, onClose, category = "Formal Wear" }: Si
             </button>
             <button
               onClick={() => setActiveTab("calculator")}
-              className={`px-4 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider flex items-center gap-1.5 transition-all ${
+              className={`px-4 py-1.5 text-xs font-medium uppercase tracking-widest flex items-center gap-1.5 transition-all ${
                 activeTab === "calculator"
-                  ? "bg-white text-black font-semibold shadow-lg"
+                  ? "bg-white text-black font-semibold"
                   : "text-white/60 hover:text-white hover:bg-white/5"
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-white" />
               Fit Recommender
             </button>
           </div>
@@ -289,19 +289,19 @@ export function SizeGuideModal({ isOpen, onClose, category = "Formal Wear" }: Si
 
             <button
               type="submit"
-              className="w-full py-3 bg-white text-black text-xs font-semibold uppercase tracking-wider rounded-xl hover:bg-neutral-200 transition-colors shadow-lg"
+              className="w-full py-3 bg-white text-black text-xs font-semibold uppercase tracking-widest hover:bg-neutral-200 transition-colors"
             >
               Calculate Recommended Size
             </button>
 
             {calculatedSize && (
-              <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-between animate-fade-in">
+              <div className="p-4 bg-neutral-900 border border-white/20 flex items-center justify-between animate-fade-in">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                    <Check className="w-4 h-4" />
+                  <div className="w-8 h-8 bg-white/10 text-white flex items-center justify-center">
+                    <Check className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <div className="text-xs text-emerald-400 font-medium uppercase tracking-wider">
+                    <div className="text-xs text-neutral-400 font-medium uppercase tracking-widest">
                       Recommended Size
                     </div>
                     <div className="text-sm font-semibold text-white">
@@ -324,7 +324,7 @@ export function SizeGuideModal({ isOpen, onClose, category = "Formal Wear" }: Si
             href="https://wa.me/923700349146?text=Salaam%2C%20I%20would%20like%20to%20consult%20with%20a%20SPOGMAI%20tailor%20regarding%20custom%20measurements."
             target="_blank"
             rel="noopener noreferrer"
-            className="text-emerald-400 hover:underline font-medium"
+            className="text-white hover:underline font-medium"
           >
             WhatsApp Master Tailor (+92 370 0349146) →
           </a>

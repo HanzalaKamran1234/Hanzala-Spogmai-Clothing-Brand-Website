@@ -95,8 +95,8 @@ export function QuickViewModal() {
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-amber-400">
-                  <Star className="w-3.5 h-3.5 fill-current" />
+                <div className="flex items-center gap-1.5 text-xs text-white">
+                  <Star className="w-3.5 h-3.5 fill-white text-white" />
                   <span className="font-semibold text-white">{product.rating}</span>
                   <span className="text-white/40">({product.reviewsCount} reviews)</span>
                 </div>
@@ -111,7 +111,7 @@ export function QuickViewModal() {
                 <div className="flex justify-between text-xs">
                   <span className="text-white/70">Select Size:</span>
                   <Link
-                    href="/faq#sizing"
+                    href="/size-guide"
                     onClick={() => setQuickViewProduct(null)}
                     className="text-white/50 hover:text-white underline"
                   >
@@ -123,9 +123,9 @@ export function QuickViewModal() {
                     <button
                       key={sz}
                       onClick={() => setSelectedSize(sz)}
-                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all ${
+                      className={`px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest transition-all ${
                         currentSize === sz
-                          ? "bg-white text-black ring-2 ring-white"
+                          ? "bg-white text-black"
                           : "bg-white/5 border border-white/10 text-white hover:bg-white/10"
                       }`}
                     >
@@ -138,7 +138,7 @@ export function QuickViewModal() {
               {/* Quantity */}
               <div className="flex items-center gap-4 pt-1">
                 <span className="text-xs text-white/70">Quantity:</span>
-                <div className="flex items-center border border-white/20 rounded-full px-3 py-1 bg-black">
+                <div className="flex items-center border border-white/20 px-3 py-1 bg-black">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="text-white/60 hover:text-white px-1 text-sm"
@@ -161,14 +161,14 @@ export function QuickViewModal() {
               <div className="flex gap-3">
                 <button
                   onClick={handleAdd}
-                  className="flex-1 py-3.5 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-full hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 py-3.5 bg-white text-black font-semibold text-xs uppercase tracking-widest hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   <span>Add to Bag • {formatPKR(product.price * quantity)}</span>
                 </button>
                 <button
                   onClick={() => toggleWishlist(product.id)}
-                  className={`p-3.5 rounded-full border border-white/20 transition-colors ${
+                  className={`p-3.5 border border-white/20 transition-colors ${
                     isFavorited ? "bg-white text-black" : "text-white hover:bg-white/10"
                   }`}
                   aria-label="Wishlist"
@@ -179,7 +179,7 @@ export function QuickViewModal() {
 
               <div className="flex items-center justify-between text-[11px] text-white/50 pt-1">
                 <span className="flex items-center gap-1.5">
-                  <Truck className="w-3.5 h-3.5 text-emerald-400" /> Free delivery across Pakistan
+                  <Truck className="w-3.5 h-3.5 text-white" /> Free delivery across Pakistan
                 </span>
                 <Link
                   href={`/product/${product.id}`}

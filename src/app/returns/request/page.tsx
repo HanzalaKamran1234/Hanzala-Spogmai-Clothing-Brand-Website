@@ -101,16 +101,16 @@ export default function ReturnRequestPage() {
         </Link>
 
         {step === 1 ? (
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8">
+          <div className="bg-neutral-900/60 border border-white/10 p-6 sm:p-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white">
-                <RefreshCw className="w-5 h-5 text-emerald-400" />
+              <div className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center text-white">
+                <RefreshCw className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl sm:text-2xl font-light text-white tracking-wide">
+                <h1 className="text-xl sm:text-2xl font-serif text-white tracking-wide">
                   Return & Exchange Request Portal
                 </h1>
-                <p className="text-xs text-white/50 uppercase tracking-wider">
+                <p className="text-xs text-white/50 uppercase tracking-widest">
                   Bespoke Client Satisfaction Guarantee
                 </p>
               </div>
@@ -349,24 +349,24 @@ export default function ReturnRequestPage() {
           </div>
         ) : (
           /* Step 2: Success Confirmation */
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center animate-fade-in">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-8 h-8" />
+          <div className="bg-neutral-900/60 border border-white/10 p-8 text-center animate-fade-in">
+            <div className="w-16 h-16 bg-white/10 text-white flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 className="w-8 h-8 text-white" />
             </div>
 
-            <span className="text-xs uppercase tracking-widest text-emerald-400 font-medium block mb-2">
+            <span className="text-xs uppercase tracking-widest text-neutral-400 font-medium block mb-2">
               Request Registered Successfully
             </span>
-            <h2 className="text-2xl font-light text-white mb-2">
+            <h2 className="text-2xl font-serif text-white mb-2">
               Return Ticket #{ticketResult?.ticketNumber}
             </h2>
             <p className="text-xs text-neutral-400 max-w-md mx-auto mb-8 font-light">
               Your request for Order #{ticketResult?.orderNumber} has been logged in the atelier pipeline. Our concierge will review the details and dispatch our reverse courier service.
             </p>
 
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10 max-w-md mx-auto text-left text-xs text-white/70 space-y-2 mb-8">
+            <div className="p-4 bg-neutral-950 border border-white/10 max-w-md mx-auto text-left text-xs text-white/70 space-y-2 mb-8">
               <div className="flex items-center gap-2 text-white font-semibold">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" /> What Happens Next:
+                <ShieldCheck className="w-4 h-4 text-white" /> What Happens Next:
               </div>
               <ul className="list-disc list-inside space-y-1 text-white/60">
                 <li>Courier rider will arrive with your replacement or reverse return packaging within 2-3 business days.</li>
@@ -382,13 +382,13 @@ export default function ReturnRequestPage() {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold uppercase tracking-wider hover:bg-emerald-500/30 transition-colors inline-flex items-center justify-center gap-2"
+                className="px-6 py-3 bg-white/10 text-white border border-white/20 text-xs font-semibold uppercase tracking-widest hover:bg-white hover:text-black transition-colors inline-flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-4 h-4" /> Message Concierge on WhatsApp
               </a>
               <Link
                 href="/shop"
-                className="px-6 py-3 rounded-xl bg-white text-black text-xs font-semibold uppercase tracking-wider hover:bg-neutral-200 transition-colors inline-flex items-center justify-center"
+                className="px-6 py-3 bg-white text-black text-xs font-semibold uppercase tracking-widest hover:bg-neutral-200 transition-colors inline-flex items-center justify-center"
               >
                 Return to Store
               </Link>

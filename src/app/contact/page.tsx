@@ -36,14 +36,14 @@ export default function ContactPage() {
           {/* Left: Official Contact Info & Socials (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             {/* Direct WhatsApp Callout */}
-            <div className="p-6 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 space-y-4">
+            <div className="p-6 bg-neutral-900 border border-white/20 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                  <MessageCircle className="w-5 h-5" />
+                <div className="w-10 h-10 bg-white/10 text-white flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-base font-serif font-bold text-white">Instant WhatsApp Concierge</h3>
-                  <p className="text-xs text-emerald-400">Response within minutes</p>
+                  <h3 className="text-base font-serif font-semibold text-white">Instant WhatsApp Concierge</h3>
+                  <p className="text-xs text-neutral-400">Response within minutes</p>
                 </div>
               </div>
               <p className="text-xs text-neutral-300 leading-relaxed font-light">
@@ -53,7 +53,7 @@ export default function ContactPage() {
                 href="https://wa.me/923700349146"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-widest rounded-full transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 bg-white hover:bg-neutral-200 text-black font-semibold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2"
               >
                 <span>Chat on WhatsApp (+92 370 0349146)</span>
                 <ArrowRight className="w-4 h-4" />
@@ -61,7 +61,7 @@ export default function ContactPage() {
             </div>
 
             {/* Official Phone & Hours */}
-            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-5 text-xs text-neutral-300">
+            <div className="p-6 bg-neutral-900/50 border border-white/10 space-y-5 text-xs text-neutral-300">
               <div className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-white mt-0.5" />
                 <div>
@@ -124,16 +124,16 @@ export default function ContactPage() {
             <div className="p-8 sm:p-12 rounded-3xl bg-white/5 border border-white/10 shadow-2xl">
               {submitted ? (
                 <div className="py-16 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mx-auto flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8" />
+                  <div className="w-16 h-16 bg-white/10 border border-white/20 text-white mx-auto flex items-center justify-center">
+                    <CheckCircle2 className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-serif font-bold text-white">Message Transmitted</h3>
+                  <h3 className="text-2xl font-serif text-white">Message Transmitted</h3>
                   <p className="text-xs text-neutral-400 max-w-sm mx-auto">
                     Thank you, {name}. Our menswear styling team will review your inquiry and connect via WhatsApp (+92 370 0349146) within 2 to 4 business hours.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="mt-4 px-6 py-2.5 rounded-full bg-white/10 text-white text-xs uppercase tracking-wider hover:bg-white/20"
+                    className="mt-4 px-6 py-2.5 bg-white text-black text-xs uppercase tracking-widest hover:bg-neutral-200"
                   >
                     Send Another Inquiry
                   </button>

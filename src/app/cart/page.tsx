@@ -152,25 +152,25 @@ export default function CartPage() {
   // Order Complete Confirmation Screen
   if (orderComplete) {
     return (
-      <div className="bg-[#050505] min-h-[85vh] flex items-center justify-center px-4 py-20 text-white">
-        <div className="max-w-md w-full bg-[#0c0c0c] border border-white/15 rounded-3xl p-8 sm:p-10 text-center space-y-6 shadow-2xl">
-          <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mx-auto flex items-center justify-center">
-            <CheckCircle2 className="w-8 h-8" />
+      <div className="bg-[#080808] min-h-[85vh] flex items-center justify-center px-4 py-20 text-white">
+        <div className="max-w-md w-full bg-[#000000] border border-white/20 p-8 sm:p-10 text-center space-y-6 shadow-2xl">
+          <div className="w-14 h-14 border border-white/30 text-white mx-auto flex items-center justify-center">
+            <CheckCircle2 className="w-7 h-7" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-emerald-400 font-semibold font-mono">
-              Cash on Delivery Order Confirmed
+            <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 font-medium font-mono">
+              Cash on Delivery Order Registered
             </span>
-            <h1 className="text-2xl sm:text-3xl font-serif font-bold">
+            <h1 className="text-2xl sm:text-3xl font-serif font-light">
               Thank You, {orderComplete.customerName}
             </h1>
             <p className="text-xs text-neutral-400 leading-relaxed font-light">
-              Your bespoke menswear order has been registered in our database. Our team will verify your measurements via WhatsApp (+92 370 0349146) before dispatch.
+              Your bespoke menswear order has been registered in our atelier database. Our concierge will verify your measurements via WhatsApp (+92 370 0349146) before dispatch.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-left space-y-2.5">
+          <div className="p-4 bg-white/5 border border-white/10 text-xs text-left space-y-2.5">
             <div className="flex justify-between">
               <span className="text-neutral-500">Order Reference:</span>
               <span className="text-white font-mono font-bold">#{orderComplete.orderNumber}</span>
@@ -185,7 +185,7 @@ export default function CartPage() {
             </div>
             <div className="flex justify-between border-t border-white/10 pt-2 font-semibold">
               <span className="text-neutral-300">Amount Payable at Door:</span>
-              <span className="text-emerald-400 text-sm font-bold font-mono">
+              <span className="text-white text-sm font-bold font-mono">
                 {formatPKR(orderComplete.total)}
               </span>
             </div>
@@ -198,7 +198,7 @@ export default function CartPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-black text-xs uppercase tracking-widest font-bold rounded-full transition-all flex items-center justify-center gap-2 shadow-lg"
+              className="w-full py-3.5 bg-white text-black text-xs uppercase tracking-[0.2em] font-semibold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2"
             >
               <MessageCircle className="w-4 h-4" />
               <span>Confirm on WhatsApp (+92 370 0349146)</span>
@@ -206,14 +206,14 @@ export default function CartPage() {
 
             <Link
               href={`/track?order=${orderComplete.orderNumber}`}
-              className="w-full py-3 bg-white/10 text-white text-xs uppercase tracking-widest font-bold rounded-full hover:bg-white/20 transition-colors block text-center"
+              className="w-full py-3 border border-white/20 text-white text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-colors block text-center"
             >
               Live Order Milestones & Tracking →
             </Link>
 
             <Link
               href="/shop"
-              className="text-xs text-white/50 hover:text-white pt-2 block text-center"
+              className="text-xs text-neutral-400 hover:text-white pt-2 block text-center"
             >
               Continue Browsing Atelier
             </Link>
@@ -409,7 +409,7 @@ export default function CartPage() {
                   </div>
 
                   {promoApplied && (
-                    <div className="flex justify-between text-emerald-400">
+                    <div className="flex justify-between text-white">
                       <span>Voucher Discount</span>
                       <span>-{formatPKR(discountAmount)}</span>
                     </div>
@@ -425,7 +425,7 @@ export default function CartPage() {
                   </div>
 
                   {shippingFee === 0 && (
-                    <p className="text-[11px] text-emerald-400 flex items-center gap-1.5">
+                    <p className="text-[11px] text-neutral-300 flex items-center gap-1.5">
                       <Truck className="w-3.5 h-3.5" /> Order qualifies for complimentary express shipping
                     </p>
                   )}
@@ -439,20 +439,20 @@ export default function CartPage() {
                 {!isCheckingOut ? (
                   <button
                     onClick={() => setIsCheckingOut(true)}
-                    className="w-full py-4 bg-white text-black text-xs uppercase tracking-widest font-bold rounded-full hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.2)]"
+                    className="w-full py-4 bg-white text-black text-xs uppercase tracking-[0.2em] font-semibold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2"
                   >
                     <span>Proceed to Cash on Delivery</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 ) : (
                   <div className="pt-2 border-t border-white/10 space-y-4">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-serif font-semibold text-white">
+                      <h3 className="text-sm font-serif font-light text-white uppercase tracking-wider">
                         Delivery Destination in Pakistan
                       </h3>
                       <button
                         onClick={() => setIsCheckingOut(false)}
-                        className="text-[11px] text-neutral-400 hover:text-white"
+                        className="text-[11px] text-neutral-400 hover:text-white uppercase tracking-wider"
                       >
                         Cancel
                       </button>
@@ -460,7 +460,7 @@ export default function CartPage() {
 
                     <form onSubmit={handlePlaceOrder} className="space-y-3">
                       <div>
-                        <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
+                        <label className="text-[10px] uppercase tracking-wider text-neutral-400 block mb-1">
                           Full Name *
                         </label>
                         <input
@@ -469,18 +469,18 @@ export default function CartPage() {
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                           placeholder="e.g. Tariq Mansoor"
-                          className="w-full bg-black/60 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white"
+                          className="w-full bg-[#111] border border-white/15 px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white"
                         />
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <div className="flex justify-between items-center mb-1">
-                            <label className="text-[11px] uppercase tracking-wider text-neutral-400 block">
+                            <label className="text-[10px] uppercase tracking-wider text-neutral-400 block">
                               Phone / WhatsApp *
                             </label>
                             {phone && (
-                              <span className={`text-[10px] ${isValidPakPhone ? "text-emerald-400" : "text-amber-400"}`}>
+                              <span className={`text-[10px] ${isValidPakPhone ? "text-white" : "text-neutral-400"}`}>
                                 {isValidPakPhone ? "✓ Valid" : "Must be 03XX"}
                               </span>
                             )}
@@ -491,15 +491,11 @@ export default function CartPage() {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="0300 1234567"
-                            className={`w-full bg-black/60 border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none font-mono ${
-                              phone && !isValidPakPhone
-                                ? "border-amber-500/50"
-                                : "border-white/15 focus:border-white"
-                            }`}
+                            className="w-full bg-[#111] border border-white/15 px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white font-mono"
                           />
                         </div>
                         <div>
-                          <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
+                          <label className="text-[10px] uppercase tracking-wider text-neutral-400 block mb-1">
                             Email (Optional)
                           </label>
                           <input
@@ -507,20 +503,20 @@ export default function CartPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="tariq@gmail.com"
-                            className="w-full bg-black/60 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white"
+                            className="w-full bg-[#111] border border-white/15 px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
+                          <label className="text-[10px] uppercase tracking-wider text-neutral-400 block mb-1">
                             City in Pakistan *
                           </label>
                           <select
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
-                            className="w-full bg-neutral-900 border border-white/15 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none cursor-pointer"
+                            className="w-full bg-[#111] border border-white/15 px-3 py-2.5 text-xs text-white focus:outline-none cursor-pointer"
                           >
                             <option value="Karachi">Karachi (Rs 250)</option>
                             <option value="Lahore">Lahore (Rs 250)</option>
@@ -539,13 +535,13 @@ export default function CartPage() {
                         </div>
 
                         <div>
-                          <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
+                          <label className="text-[10px] uppercase tracking-wider text-neutral-400 block mb-1">
                             Payment Mode
                           </label>
                           <select
                             value={paymentMethod}
                             onChange={(e) => setPaymentMethod(e.target.value as any)}
-                            className="w-full bg-neutral-900 border border-white/15 rounded-xl px-3 py-2.5 text-xs text-emerald-400 focus:outline-none cursor-pointer font-medium"
+                            className="w-full bg-[#111] border border-white/15 px-3 py-2.5 text-xs text-white focus:outline-none cursor-pointer font-medium"
                           >
                             <option value="COD">Cash on Delivery (COD)</option>
                             <option value="JazzCash">JazzCash (Direct)</option>
@@ -555,13 +551,13 @@ export default function CartPage() {
                       </div>
 
                       {paymentMethod !== "COD" && (
-                        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300">
+                        <div className="p-3 bg-white/5 border border-white/15 text-[11px] text-neutral-300">
                           Transfer directly to SPOGMAI Merchant Account after placing order. Our concierge will send the payment prompt to your WhatsApp.
                         </div>
                       )}
 
                       <div>
-                        <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
+                        <label className="text-[10px] uppercase tracking-wider text-neutral-400 block mb-1">
                           Street Address *
                         </label>
                         <textarea
@@ -570,12 +566,12 @@ export default function CartPage() {
                           value={address}
                           onChange={(e) => setAddress(e.target.value)}
                           placeholder="House #, Street, Phase / Sector"
-                          className="w-full bg-black/60 border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white resize-none"
+                          className="w-full bg-[#111] border border-white/15 px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white resize-none"
                         />
                       </div>
 
                       <div>
-                        <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
+                        <label className="text-[10px] uppercase tracking-wider text-neutral-400 block mb-1">
                           Special Instructions (Optional)
                         </label>
                         <input
@@ -583,14 +579,14 @@ export default function CartPage() {
                           value={notes}
                           onChange={(e) => setNotes(e.target.value)}
                           placeholder="e.g. Call before delivery, specific chest measurement..."
-                          className="w-full bg-black/60 border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white"
+                          className="w-full bg-[#111] border border-white/15 px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white"
                         />
                       </div>
 
                       <button
                         type="submit"
                         disabled={submittingOrder}
-                        className="w-full mt-2 py-4 bg-emerald-500 hover:bg-emerald-400 text-black text-xs uppercase tracking-widest font-bold rounded-full transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
+                        className="w-full mt-2 py-4 bg-white text-black text-xs uppercase tracking-[0.2em] font-semibold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                       >
                         <ShieldCheck className="w-4 h-4" />
                         <span>
@@ -605,7 +601,7 @@ export default function CartPage() {
 
                 <div className="pt-2 text-[11px] text-neutral-500 text-center space-y-1">
                   <p className="flex items-center justify-center gap-1.5 text-neutral-400">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-white" />
                     Verified Courier Delivery with Cash on Arrival
                   </p>
                   <p>14-Day Free Exchange Guarantee Across Pakistan</p>

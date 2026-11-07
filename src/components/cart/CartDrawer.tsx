@@ -72,19 +72,19 @@ export function CartDrawer() {
           </div>
 
           {/* Free Shipping Progress Indicator */}
-          <div className="px-6 py-3.5 bg-white/5 border-b border-white/10 text-xs">
+          <div className="px-6 py-3.5 bg-neutral-900 border-b border-white/10 text-xs">
             {remainingForFreeShipping === 0 ? (
-              <p className="text-emerald-400 font-medium flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4" /> You've unlocked Complimentary Express Delivery!
+              <p className="text-white font-medium flex items-center gap-1.5 tracking-wide">
+                <ShieldCheck className="w-4 h-4 text-white" /> You've unlocked Complimentary Express Delivery!
               </p>
             ) : (
               <p className="text-white/70">
                 Add <span className="text-white font-semibold">{formatPKR(remainingForFreeShipping)}</span> more for Free Express Delivery across Pakistan.
               </p>
             )}
-            <div className="w-full h-1.5 bg-white/10 rounded-full mt-2 overflow-hidden">
+            <div className="w-full h-1.5 bg-white/10 rounded-none mt-2 overflow-hidden">
               <div
-                className="h-full bg-white transition-all duration-300 rounded-full"
+                className="h-full bg-white transition-all duration-300 rounded-none"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -105,7 +105,7 @@ export function CartDrawer() {
                 </div>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="mt-4 px-6 py-2.5 bg-white text-black text-xs uppercase tracking-widest font-bold rounded-full hover:bg-neutral-200 transition-colors"
+                  className="mt-4 px-6 py-2.5 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-colors"
                 >
                   Explore Collection
                 </button>
@@ -114,9 +114,9 @@ export function CartDrawer() {
               cart.map((item) => (
                 <div
                   key={`${item.product.id}-${item.selectedSize}`}
-                  className="flex gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors"
+                  className="flex gap-4 p-3 bg-neutral-900/60 border border-white/10 hover:border-white/20 transition-colors"
                 >
-                  <div className="relative w-20 h-28 flex-shrink-0 bg-neutral-900 rounded-lg overflow-hidden">
+                  <div className="relative w-20 h-28 flex-shrink-0 bg-neutral-900 overflow-hidden">
                     <Image
                       src={item.product.images[0]}
                       alt={item.product.name}
@@ -134,7 +134,7 @@ export function CartDrawer() {
                         </h4>
                         <button
                           onClick={() => removeFromCart(item.product.id, item.selectedSize)}
-                          className="text-white/40 hover:text-rose-400 transition-colors p-1"
+                          className="text-white/40 hover:text-white transition-colors p-1"
                           title="Remove item"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -153,7 +153,7 @@ export function CartDrawer() {
 
                     <div className="flex items-center justify-between pt-2">
                       {/* Quantity stepper */}
-                      <div className="flex items-center border border-white/15 rounded-full px-2 py-0.5 bg-black">
+                      <div className="flex items-center border border-white/15 px-2 py-0.5 bg-black">
                         <button
                           onClick={() => updateQuantity(item.product.id, item.selectedSize, item.quantity - 1)}
                           className="p-1 text-white/60 hover:text-white"
@@ -195,12 +195,12 @@ export function CartDrawer() {
                     value={promoCode}
                     onChange={(e) => setPromoCode(e.target.value)}
                     placeholder="Promo code (Try: SPOGMAI10)"
-                    className="w-full bg-white/5 border border-white/15 rounded-lg pl-8 pr-3 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:border-white"
+                    className="w-full bg-white/5 border border-white/15 pl-8 pr-3 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:border-white"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-medium transition-colors"
+                  className="px-3 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition-colors"
                 >
                   Apply
                 </button>
@@ -213,7 +213,7 @@ export function CartDrawer() {
                   <span className="text-white font-medium">{formatPKR(cartSubtotal)}</span>
                 </div>
                 {promoApplied && (
-                  <div className="flex justify-between text-emerald-400">
+                  <div className="flex justify-between text-white font-medium">
                     <span>Discount (10% off)</span>
                     <span>-{formatPKR(discountAmount)}</span>
                   </div>
@@ -235,14 +235,14 @@ export function CartDrawer() {
                 <Link
                   href="/cart"
                   onClick={() => setIsCartOpen(false)}
-                  className="w-full py-3.5 bg-white text-black text-xs uppercase tracking-widest font-bold rounded-full hover:bg-neutral-200 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3.5 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-all flex items-center justify-center gap-2"
                 >
                   <span>Proceed to Checkout</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <p className="text-[10px] text-center text-white/50 flex items-center justify-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-white" />
                   Cash on Delivery & Secure Online Checkout in Pakistan
                 </p>
               </div>

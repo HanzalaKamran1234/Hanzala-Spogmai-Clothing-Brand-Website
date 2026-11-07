@@ -17,11 +17,11 @@ export default function SizeGuidePage() {
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-24">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs uppercase tracking-widest text-emerald-400 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-xs uppercase tracking-widest text-white mb-4">
             <Ruler className="w-3.5 h-3.5" />
             Bespoke Menswear Proportions
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif tracking-wide text-white mb-4">
             The SPOGMAI Fit Architecture
           </h1>
           <p className="text-neutral-400 text-sm sm:text-base font-light leading-relaxed">
@@ -156,13 +156,13 @@ export default function SizeGuidePage() {
         </div>
 
         {/* Tailored Custom Orders Banner */}
-        <div className="bg-gradient-to-r from-neutral-900 to-black border border-white/10 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="bg-neutral-900/60 border border-white/10 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400">
-              <ShieldCheck className="w-4 h-4" />
+            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-white/80">
+              <ShieldCheck className="w-4 h-4 text-white" />
               Guaranteed Sartorial Fit Policy
             </div>
-            <h3 className="text-xl font-light text-white">
+            <h3 className="text-xl font-serif text-white">
               Complimentary Size Exchange Nationwide
             </h3>
             <p className="text-xs text-neutral-400 max-w-lg">
@@ -172,7 +172,7 @@ export default function SizeGuidePage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
               href="/shop"
-              className="px-6 py-3 bg-white text-black text-xs font-semibold uppercase tracking-wider rounded-xl hover:bg-neutral-200 transition-colors inline-flex items-center gap-2 justify-center"
+              className="px-6 py-3 bg-white text-black text-xs font-semibold uppercase tracking-widest hover:bg-neutral-200 transition-colors inline-flex items-center gap-2 justify-center"
             >
               Shop Menswear <ArrowRight className="w-4 h-4" />
             </Link>

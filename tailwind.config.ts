@@ -9,38 +9,35 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#050505",
-        surface: "#0c0c0c",
-        "surface-elevated": "#141414",
-        "border-subtle": "rgba(255, 255, 255, 0.08)",
-        "border-light": "rgba(255, 255, 255, 0.16)",
-        muted: "#888888",
-        brand: {
+        background: "#080808",
+        surface: "#111111",
+        "surface-elevated": "#171717",
+        spogmai: {
+          luxury: "#080808",
           black: "#000000",
-          pure: "#050505",
-          charcoal: "#121212",
-          gray: "#222222",
-          silver: "#E5E5E5",
           white: "#FFFFFF",
+          ivory: "#F5F5F2",
+          charcoal: "#171717",
+          darkgrey: "#292929",
+          stone: "#858585",
+          lightgrey: "#D9D9D9",
+          border: "#262626",
+          borderlight: "#E8E8E8",
+          mutedwhite: "#F7F7F7",
         },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
-        serif: ["var(--font-playfair)", "Playfair Display", "Merriweather", "serif"],
+        serif: ["var(--font-playfair)", "Playfair Display", "Cormorant Garamond", "Georgia", "serif"],
       },
       keyframes: {
         marquee: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
         },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "0.8" },
-        },
       },
       animation: {
-        marquee: "marquee 25s linear infinite",
-        "pulse-glow": "pulse-glow 4s ease-in-out infinite",
+        marquee: "marquee 28s linear infinite",
       },
     },
   },

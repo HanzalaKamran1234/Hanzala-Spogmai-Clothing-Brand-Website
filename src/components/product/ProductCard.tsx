@@ -31,7 +31,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <div
-      className="group relative flex flex-col bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-white/30 hover:bg-white/10 transition-all duration-300"
+      className="group relative flex flex-col bg-[#080808] border border-white/10 overflow-hidden hover:border-white/30 transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -53,7 +53,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         {product.images[1] && (
           <Image
             src={product.images[1]}
-            alt={`${product.name} back angle`}
+            alt={`${product.name} alternate view`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className={`object-cover object-top absolute inset-0 transition-all duration-700 ${
@@ -63,44 +63,39 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         )}
 
         {/* Subtle Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
 
-        {/* Top Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
+        {/* Top Minimalist Rectangular Badges */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1 z-10">
           {product.isNewArrival && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest bg-white text-black shadow-md">
-              New Arrival
+            <span className="px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.2em] bg-white text-black">
+              New
             </span>
           )}
           {product.isBestSeller && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest bg-black/80 backdrop-blur-md text-white border border-white/20">
-              Bestseller
-            </span>
-          )}
-          {product.originalPrice && product.originalPrice > product.price && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest bg-red-950/80 backdrop-blur-md text-red-300 border border-red-500/30">
-              Save {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+            <span className="px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.2em] bg-black text-white border border-white/20">
+              Signature
             </span>
           )}
         </div>
 
-        {/* Top Right Wishlist & Quick View Actions */}
-        <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
+        {/* Top Right Wishlist & Quick View */}
+        <div className="absolute top-3 right-3 flex flex-col gap-1.5 z-10">
           <button
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               toggleWishlist(product.id);
             }}
-            className={`p-2 rounded-full backdrop-blur-md transition-all duration-200 ${
+            className={`p-2 transition-colors ${
               isFavorited
-                ? "bg-white text-black fill-black"
-                : "bg-black/60 text-white/80 hover:text-white hover:bg-black/90 border border-white/10"
+                ? "bg-white text-black"
+                : "bg-black/70 text-white/80 hover:text-white border border-white/10"
             }`}
             title={isFavorited ? "Remove from wishlist" : "Add to wishlist"}
             aria-label="Wishlist"
           >
-            <Heart className={`w-4 h-4 ${isFavorited ? "fill-current" : ""}`} />
+            <Heart className={`w-3.5 h-3.5 ${isFavorited ? "fill-current" : ""}`} />
           </button>
 
           <button
@@ -109,22 +104,22 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
               e.stopPropagation();
               setQuickViewProduct(product);
             }}
-            className="p-2 rounded-full bg-black/60 text-white/80 hover:text-white hover:bg-black/90 backdrop-blur-md border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-200"
+            className="p-2 bg-black/70 text-white/80 hover:text-white border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity"
             title="Quick preview"
             aria-label="Quick View"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-3.5 h-3.5" />
           </button>
         </div>
 
         {/* Quick Size Select & Add Overlay on Hover */}
-        <div className="absolute bottom-3 inset-x-3 z-10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-          <div className="bg-black/90 backdrop-blur-md border border-white/15 rounded-xl p-2.5 flex flex-col gap-2 shadow-2xl">
-            <div className="flex items-center justify-between text-[11px] text-white/60">
-              <span>Select Size:</span>
+        <div className="absolute bottom-3 inset-x-3 z-10 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">
+          <div className="bg-black/95 border border-white/15 p-2.5 flex flex-col gap-2">
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-neutral-400">
+              <span>Size:</span>
               <span className="text-white font-medium">{selectedSize}</span>
             </div>
-            <div className="flex items-center gap-1.5 flex-wrap">
+            <div className="flex items-center gap-1 flex-wrap">
               {product.sizes.map((sz) => (
                 <button
                   key={sz}
@@ -133,7 +128,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
                     e.stopPropagation();
                     setSelectedSize(sz);
                   }}
-                  className={`text-[11px] font-medium px-2 py-1 rounded transition-colors ${
+                  className={`text-[10px] font-medium px-2 py-0.5 transition-colors ${
                     selectedSize === sz
                       ? "bg-white text-black"
                       : "bg-white/10 text-white hover:bg-white/20"
@@ -145,19 +140,15 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
             </div>
             <button
               onClick={handleQuickAdd}
-              className={`w-full py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
-                added
-                  ? "bg-emerald-500 text-white"
-                  : "bg-white text-black hover:bg-neutral-200"
-              }`}
+              className="w-full py-2 bg-white text-black text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-neutral-200 transition-colors flex items-center justify-center gap-1.5"
             >
               {added ? (
                 <>
-                  <Check className="w-3.5 h-3.5" /> Added to Bag
+                  <Check className="w-3 h-3" /> Added to Bag
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-3.5 h-3.5" /> Quick Add
+                  <ShoppingBag className="w-3 h-3" /> Quick Add
                 </>
               )}
             </button>
@@ -166,35 +157,34 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       </Link>
 
       {/* Info Section */}
-      <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
+      <div className="p-4 flex flex-col justify-between flex-1 space-y-2">
         <div>
-          <div className="flex items-center justify-between text-[11px] uppercase tracking-wider text-white/50 mb-1">
-            <span>{product.collection}</span>
-            <span>{product.fabric.split(" ")[0]}</span>
-          </div>
+          <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400 block mb-1">
+            {product.category}
+          </span>
 
           <Link href={`/product/${product.id}`}>
-            <h3 className="text-sm sm:text-base font-serif font-medium text-white group-hover:text-white/80 transition-colors line-clamp-1">
+            <h3 className="text-sm font-serif font-normal text-white group-hover:text-neutral-300 transition-colors line-clamp-1">
               {product.name}
             </h3>
           </Link>
-          <p className="text-xs text-white/50 line-clamp-1 mt-0.5">{product.subtitle}</p>
+          <p className="text-[11px] text-neutral-400 line-clamp-1 mt-0.5">{product.subtitle}</p>
         </div>
 
-        <div className="pt-3 mt-3 border-t border-white/10 flex items-center justify-between">
+        <div className="pt-2 border-t border-white/10 flex items-center justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="text-sm sm:text-base font-semibold text-white">
+            <span className="text-sm font-mono font-medium text-white">
               {formatPKR(product.price)}
             </span>
             {product.originalPrice && product.originalPrice > product.price && (
-              <span className="text-xs text-white/40 line-through">
+              <span className="text-xs text-neutral-500 line-through">
                 {formatPKR(product.originalPrice)}
               </span>
             )}
           </div>
 
-          <span className="text-[10px] uppercase tracking-widest text-emerald-400 font-medium">
-            Cash On Delivery
+          <span className="text-[9px] uppercase tracking-[0.2em] text-neutral-400">
+            COD Available
           </span>
         </div>
       </div>

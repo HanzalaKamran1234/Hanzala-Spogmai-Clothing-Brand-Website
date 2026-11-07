@@ -60,11 +60,11 @@ export default function OrderTrackingPage() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-24">
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs uppercase tracking-widest text-emerald-400 mb-4">
-            <PackageCheck className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-xs uppercase tracking-widest text-white mb-4">
+            <PackageCheck className="w-3.5 h-3.5 text-white" />
             Atelier Dispatch & Logistics
           </div>
-          <h1 className="text-3xl sm:text-4xl font-light tracking-tight text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl font-serif tracking-wide text-white mb-3">
             Track Your SPOGMAI Order
           </h1>
           <p className="text-neutral-400 text-xs sm:text-sm font-light">
@@ -80,13 +80,13 @@ export default function OrderTrackingPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="e.g. SPOG-784210 or 0300 1234567"
-              className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-28 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors"
+              className="w-full bg-neutral-900 border border-white/15 py-4 pl-12 pr-28 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors"
             />
             <Search className="absolute left-4 w-5 h-5 text-white/40" />
             <button
               type="submit"
               disabled={loading}
-              className="absolute right-2 px-5 py-2.5 bg-white text-black text-xs font-semibold uppercase tracking-wider rounded-xl hover:bg-neutral-200 transition-colors disabled:opacity-50"
+              className="absolute right-2 px-5 py-2.5 bg-white text-black text-xs font-semibold uppercase tracking-widest hover:bg-neutral-200 transition-colors disabled:opacity-50"
             >
               {loading ? "Locating..." : "Track"}
             </button>
@@ -95,8 +95,8 @@ export default function OrderTrackingPage() {
 
         {/* Error message */}
         {error && (
-          <div className="max-w-xl mx-auto p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-3 mb-8">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+          <div className="max-w-xl mx-auto p-4 bg-neutral-900 border border-white/20 text-white text-xs flex items-center gap-3 mb-8">
+            <AlertCircle className="w-5 h-5 flex-shrink-0 text-white" />
             <div>{error}</div>
           </div>
         )}
@@ -107,21 +107,21 @@ export default function OrderTrackingPage() {
             {orders.map((order) => (
               <div
                 key={order.id}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8"
+                className="bg-neutral-900/60 border border-white/10 p-6 sm:p-8"
               >
                 {/* Order Top Bar */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
                   <div>
                     <div className="flex items-center gap-3">
-                      <h2 className="text-xl font-light text-white tracking-wide font-mono">
+                      <h2 className="text-xl font-serif text-white tracking-wide font-mono">
                         #{order.orderNumber}
                       </h2>
-                      <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-medium uppercase tracking-wider ${
+                      <span className={`px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest ${
                         order.status === "Delivered"
-                          ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                          ? "bg-white text-black font-semibold"
                           : order.status === "Cancelled"
-                          ? "bg-red-500/20 text-red-400 border border-red-500/30"
-                          : "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                          ? "bg-neutral-800 text-neutral-400 border border-white/10"
+                          : "bg-white/10 text-white border border-white/20"
                       }`}>
                         {order.status}
                       </span>
@@ -138,7 +138,7 @@ export default function OrderTrackingPage() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 text-xs font-medium transition-colors"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 bg-white/10 border border-white/20 text-white hover:bg-white hover:text-black text-xs font-medium uppercase tracking-wider transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
                     Inquire with Concierge on WhatsApp
@@ -183,14 +183,14 @@ export default function OrderTrackingPage() {
                       ].map((step, idx) => (
                         <div
                           key={idx}
-                          className={`p-4 rounded-xl border transition-all ${
+                          className={`p-4 border transition-all ${
                             step.done
                               ? "bg-white/10 border-white/20 text-white"
-                              : "bg-white/[0.02] border-white/5 text-white/40"
+                              : "bg-neutral-900 border-white/5 text-white/40"
                           }`}
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <step.icon className={`w-5 h-5 ${step.done ? "text-emerald-400" : "text-white/30"}`} />
+                            <step.icon className={`w-5 h-5 ${step.done ? "text-white" : "text-white/30"}`} />
                             <span className="text-[10px] font-mono text-white/30">0{idx + 1}</span>
                           </div>
                           <div className="text-xs font-semibold text-white mb-0.5">{step.title}</div>
@@ -203,12 +203,12 @@ export default function OrderTrackingPage() {
 
                 {/* Courier info card if available */}
                 {order.courierInfo && (
-                  <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="p-4 bg-neutral-900 border border-white/20 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <Truck className="w-5 h-5 text-emerald-400" />
+                      <Truck className="w-5 h-5 text-white" />
                       <div>
                         <div className="text-xs text-white font-medium">
-                          Active Courier Consignment: <strong className="text-emerald-400">{order.courierInfo.courierName} Logistics</strong>
+                          Active Courier Consignment: <strong className="text-white">{order.courierInfo.courierName} Logistics</strong>
                         </div>
                         <div className="text-[11px] text-white/60">
                           Tracking CN: <span className="font-mono">{order.courierInfo.trackingNumber}</span>
@@ -219,7 +219,7 @@ export default function OrderTrackingPage() {
                       href={order.courierInfo.trackingUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 bg-emerald-400 text-black text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-emerald-300 transition-colors inline-flex items-center gap-1.5"
+                      className="px-4 py-2 bg-white text-black text-xs font-semibold uppercase tracking-widest hover:bg-neutral-200 transition-colors inline-flex items-center gap-1.5"
                     >
                       Live Courier Portal <ArrowRight className="w-3.5 h-3.5" />
                     </a>
@@ -279,7 +279,7 @@ export default function OrderTrackingPage() {
         {/* Quick Return Assistance */}
         <div className="mt-16 text-center border-t border-white/10 pt-8 text-xs text-neutral-400">
           <span>Need to exchange your size or request an adjustment?</span>{" "}
-          <Link href="/returns/request" className="text-white hover:text-emerald-400 underline font-medium">
+          <Link href="/returns/request" className="text-white hover:underline font-medium">
             Open Return & Exchange Portal →
           </Link>
         </div>

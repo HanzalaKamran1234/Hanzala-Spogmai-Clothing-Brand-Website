@@ -10,16 +10,16 @@ import { SearchModal } from "@/components/ui/SearchModal";
 import { Toast } from "@/components/ui/Toast";
 
 export const metadata: Metadata = {
-  title: "SPOGMAI — Premium Men's Clothing & Sartorial E-Commerce",
-  description: "Refined menswear where timeless sophistication meets modern character. Pure raw silk prince coats, Irish linen kurtas, Italian wool suiting, and bespoke tailoring in Pakistan.",
-  keywords: "SPOGMAI, men's clothing Pakistan, luxury menswear, bespoke prince coat, Pakistani mens fashion, raw silk kurta, Italian wool tuxedo, cash on delivery menswear",
+  title: "SPOGMAI — WEAR THE LEGACY | Official Store",
+  description: "Refined luxury menswear where timeless sophistication meets modern character. Pure raw silk prince coats, Irish linen kurtas, Italian wool suiting, and bespoke tailoring in Pakistan.",
+  keywords: "SPOGMAI, spogmai.store, men's clothing Pakistan, luxury menswear, bespoke prince coat, Pakistani mens fashion, raw silk kurta, Italian wool tuxedo, RJ Shopping Mall Gulshan-e-Jamal",
   openGraph: {
     title: "SPOGMAI — WEAR THE LEGACY",
-    description: "Crafted for Men. Designed to Last. Discover refined menswear where timeless sophistication meets modern character.",
+    description: "Discover timeless style. Explore the collection. Handcrafted in Pakistan with pure natural silks, worsted wools, and generational tailoring.",
     type: "website",
     locale: "en_PK",
-    url: "https://spogmai.com",
-    siteName: "SPOGMAI Menswear",
+    url: "https://spogmai.store",
+    siteName: "SPOGMAI",
   },
 };
 
@@ -34,11 +34,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#050505] text-white min-h-screen flex flex-col antialiased selection:bg-white selection:text-black">
+      <body className="bg-[#080808] text-white min-h-screen flex flex-col antialiased selection:bg-white selection:text-black">
         <CartProvider>
           <AnnouncementBar />
           <Navbar />

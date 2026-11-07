@@ -21,25 +21,25 @@ export default function ShippingPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-12">
         {/* Timeline Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-            <Clock className="w-6 h-6 text-emerald-400" />
-            <h3 className="font-serif font-bold text-white text-base">Karachi & Lahore</h3>
+          <div className="p-6 bg-neutral-900/50 border border-white/10 space-y-3">
+            <Clock className="w-6 h-6 text-white" />
+            <h3 className="font-serif font-semibold text-white text-base">Karachi & Lahore</h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
               Express dispatch within 24 hours. Delivery takes 1 to 2 business days directly to your doorstep.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
+          <div className="p-6 bg-neutral-900/50 border border-white/10 space-y-3">
             <Truck className="w-6 h-6 text-white" />
-            <h3 className="font-serif font-bold text-white text-base">Nationwide Pakistan</h3>
+            <h3 className="font-serif font-semibold text-white text-base">Nationwide Pakistan</h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
               Islamabad, Rawalpindi, Faisalabad, Peshawar, Multan, Quetta, and all other cities receive delivery within 2 to 4 business days.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
+          <div className="p-6 bg-neutral-900/50 border border-white/10 space-y-3">
             <Globe className="w-6 h-6 text-neutral-400" />
-            <h3 className="font-serif font-bold text-white text-base">International Orders</h3>
+            <h3 className="font-serif font-semibold text-white text-base">International Orders</h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
               We ship worldwide to UK, USA, UAE, Canada, and Europe via DHL Express in 4 to 7 business days.
             </p>
