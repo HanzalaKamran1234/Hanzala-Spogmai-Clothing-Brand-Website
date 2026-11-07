@@ -3,21 +3,15 @@
 import React from "react";
 
 export function AnnouncementBar() {
-  const announcements = [
-    "SPOGMAI • WEAR THE LEGACY",
-    "COMPLIMENTARY WHITE-GLOVE EXPRESS DISPATCH NATIONWIDE",
-    "CASH ON DELIVERY (COD) AVAILABLE ACROSS PAKISTAN",
-    "ATELIER: RJ SHOPPING MALL, GULSHAN-E-JAMAL, SHOP LG-81",
-    "LIMITED EDITION HEIRLOOM MENSWEAR CUTS",
-  ];
+  const text = "CELEBRATE OUR GRAND OPENING — THE BIGGEST SALE AT RJ SHOPPING MALL!";
 
   return (
-    <div className="relative bg-[#000000] border-b border-white/10 text-white/80 py-2.5 overflow-hidden text-[10px] uppercase tracking-[0.25em] select-none z-40">
+    <div className="relative bg-[#000000] border-b border-white/10 text-white py-2.5 overflow-hidden text-[11px] sm:text-xs uppercase tracking-[0.22em] select-none z-40">
       <div className="flex w-fit whitespace-nowrap animate-marquee items-center gap-12">
-        {[...announcements, ...announcements, ...announcements].map((item, idx) => (
+        {[text, text, text, text, text, text].map((item, idx) => (
           <div key={idx} className="flex items-center gap-4">
-            <span className="inline-block w-1 h-1 bg-white/50"></span>
-            <span className="font-medium">{item}</span>
+            <span className="inline-block w-1 h-1 bg-white"></span>
+            <span className="font-semibold tracking-[0.2em]">{item}</span>
           </div>
         ))}
       </div>

@@ -12,7 +12,7 @@ import { Toast } from "@/components/ui/Toast";
 export const metadata: Metadata = {
   title: "SPOGMAI — WEAR THE LEGACY | Official Store",
   description: "Refined luxury menswear where timeless sophistication meets modern character. Pure raw silk prince coats, Irish linen kurtas, Italian wool suiting, and bespoke tailoring in Pakistan.",
-  keywords: "SPOGMAI, spogmai.store, men's clothing Pakistan, luxury menswear, bespoke prince coat, Pakistani mens fashion, raw silk kurta, Italian wool tuxedo, RJ Shopping Mall Gulshan-e-Jamal",
+  keywords: "SPOGMAI, spogmai.store, men's clothing Pakistan, luxury menswear, bespoke prince coat, Pakistani mens fashion, raw silk kurta, Italian wool tuxedo, RJ Shopping Mall Gulshan-e-Johar, Karachi Pakistan",
   openGraph: {
     title: "SPOGMAI — WEAR THE LEGACY",
     description: "Discover timeless style. Explore the collection. Handcrafted in Pakistan with pure natural silks, worsted wools, and generational tailoring.",

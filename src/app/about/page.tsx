@@ -42,10 +42,10 @@ export default function AboutPage() {
 
           <div className="lg:col-span-6 relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl">
             <Image
-              src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200&auto=format&fit=crop"
-              alt="SPOGMAI Menswear Campaign"
+              src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=1200&auto=format&fit=crop"
+              alt="SPOGMAI Sartorial Craft & Folded Textiles"
               fill
-              className="object-cover object-top"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 text-xs text-neutral-300 font-serif">
@@ -124,10 +124,10 @@ export default function AboutPage() {
 
           <div className="lg:col-span-6 lg:order-1 relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl">
             <Image
-              src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=1200&auto=format&fit=crop"
-              alt="SPOGMAI Menswear Tailoring Atelier"
+              src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=1200&auto=format&fit=crop"
+              alt="SPOGMAI Menswear Tailoring & Studio Garment"
               fill
-              className="object-cover object-top"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           </div>

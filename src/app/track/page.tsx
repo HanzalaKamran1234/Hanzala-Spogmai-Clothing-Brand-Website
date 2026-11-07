@@ -235,9 +235,9 @@ export default function OrderTrackingPage() {
                     {order.items.map((it, idx) => (
                       <div key={idx} className="py-3 flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
-                          <div className="relative w-12 h-14 rounded-lg overflow-hidden bg-neutral-900 flex-shrink-0">
+                          <div className="relative w-12 h-14 overflow-hidden bg-neutral-900 flex-shrink-0">
                             <Image
-                              src={it.productImage || "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=200"}
+                              src={it.productImage || "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=200"}
                               alt={it.productName}
                               fill
                               className="object-cover"

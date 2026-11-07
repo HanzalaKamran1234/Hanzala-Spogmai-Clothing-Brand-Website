@@ -1,20 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useCart } from "@/context/CartContext";
-import { Search, ShoppingBag, Heart, Menu, X, ArrowRight, User } from "lucide-react";
+import { ShoppingBag, Heart, Menu, X, User } from "lucide-react";
 
-export function Navbar() {
+function NavbarContent() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { cartCount, wishlist, setIsCartOpen, setIsSearchOpen } = useCart();
+  const { cartCount, wishlist, setIsCartOpen } = useCart();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -22,7 +23,7 @@ export function Navbar() {
 
   useEffect(() => {
     setMobileMenuOpen(false);
-  }, [pathname]);
+  }, [pathname, searchParams]);
 
   const navLinks = [
     { name: "Shop", href: "/shop" },
@@ -35,134 +36,146 @@ export function Navbar() {
     { name: "Contact", href: "/contact" },
   ];
 
+  const isLinkActive = (href: string) => {
+    if (href.includes("?category=")) {
+      const [path, query] = href.split("?");
+      if (pathname !== path) return false;
+      const expectedCategory = new URLSearchParams(query).get("category");
+      const currentCategory = searchParams.get("category");
+      return currentCategory === expectedCategory;
+    }
+    if (href === "/shop") {
+      return pathname === "/shop" && !searchParams.get("category");
+    }
+    return pathname === href;
+  };
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#080808]/95 backdrop-blur-md py-4 border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
-          : "bg-transparent py-5"
+          ? "bg-[#080808]/95 backdrop-blur-md py-3.5 border-b border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.85)]"
+          : "bg-black/40 backdrop-blur-sm py-4 border-b border-white/5"
       }`}
     >
-      <div className="container mx-auto px-6 md:px-8 flex justify-between items-center">
-        {/* Approved SPOGMAI Logo & Stylized S Emblem */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <span className="w-7 h-7 bg-white text-black font-serif font-bold text-sm flex items-center justify-center transition-transform group-hover:scale-105">
-            S
-          </span>
-          <span className="text-xl sm:text-2xl font-serif font-bold tracking-[0.28em] uppercase text-white">
-            SPOGMAI
-          </span>
-        </Link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        {/* LEFT: Text Logo Only (No Icon, No Graphic, Single 'S', breathing space) */}
+        <div className="flex-shrink-0">
+          <Link
+            href="/"
+            className="block py-1 focus:outline-none"
+            aria-label="SPOGMAI Homepage"
+          >
+            <span className="text-xl sm:text-2xl font-serif font-bold tracking-[0.28em] uppercase text-white hover:text-neutral-200 transition-colors">
+              SPOGMAI
+            </span>
+          </Link>
+        </div>
 
-        {/* Center Desktop Navigation Links */}
-        <div className="hidden lg:flex items-center space-x-7">
+        {/* CENTER: Clean, Balanced Desktop Navigation with Active Indicator */}
+        <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
           {navLinks.map((item) => {
-            const isActive = pathname === item.href;
+            const active = isLinkActive(item.href);
             return (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-xs uppercase tracking-[0.18em] transition-colors py-1 ${
-                  isActive
-                    ? "text-white font-semibold border-b border-white"
+                className={`relative py-1.5 text-xs uppercase tracking-[0.18em] transition-all duration-200 ${
+                  active
+                    ? "text-white font-medium"
                     : "text-neutral-400 hover:text-white"
                 }`}
               >
-                {item.name}
+                <span>{item.name}</span>
+                {active && (
+                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-white transition-all" />
+                )}
               </Link>
             );
           })}
         </div>
 
-        {/* Right Action Icons & Rectangular CTA */}
-        <div className="flex items-center space-x-4">
-          {/* Search Trigger */}
-          <button
-            onClick={() => setIsSearchOpen(true)}
-            className="text-neutral-400 hover:text-white transition-colors p-1"
-            aria-label="Search Collection"
-          >
-            <Search className="w-4 h-4" />
-          </button>
-
-          {/* Customer Account Trigger */}
+        {/* RIGHT: Minimalist Action Controls (Account, Wishlist, Cart, Mobile Toggle) */}
+        <div className="flex items-center space-x-3 sm:space-x-4">
+          {/* Customer Account */}
           <Link
             href="/account"
-            className="text-neutral-400 hover:text-white transition-colors p-1"
-            aria-label="Customer Account"
+            className="text-neutral-300 hover:text-white p-1.5 transition-colors"
+            aria-label="Account"
             title="My Account"
           >
             <User className="w-4 h-4" />
           </Link>
 
-          {/* Wishlist Trigger */}
+          {/* Wishlist */}
           <Link
             href="/wishlist"
-            className="relative text-neutral-400 hover:text-white transition-colors p-1 hidden sm:block"
+            className="relative text-neutral-300 hover:text-white p-1.5 transition-colors"
             aria-label="Wishlist"
-            title="Wishlist"
+            title="Saved Wishlist"
           >
             <Heart className="w-4 h-4" />
             {wishlist.length > 0 && (
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-white text-black text-[9px] font-bold flex items-center justify-center">
+              <span className="absolute 0 top-0.5 right-0.5 w-3.5 h-3.5 bg-white text-black text-[9px] font-bold flex items-center justify-center">
                 {wishlist.length}
               </span>
             )}
           </Link>
 
-          {/* Cart Bag Trigger */}
+          {/* Cart Bag */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative text-neutral-400 hover:text-white transition-colors p-1"
-            aria-label="Cart Bag"
+            className="relative text-neutral-300 hover:text-white p-1.5 transition-colors"
+            aria-label="Shopping Bag"
+            title="Shopping Bag"
           >
             <ShoppingBag className="w-4 h-4" />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-white text-black text-[9px] font-bold flex items-center justify-center">
+              <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-white text-black text-[9px] font-bold flex items-center justify-center">
                 {cartCount}
               </span>
             )}
           </button>
 
-          {/* Minimal Rectangular Shop Now CTA */}
-          <Link
-            href="/shop"
-            className="hidden sm:inline-flex px-4 py-2 bg-white text-black text-[11px] uppercase tracking-[0.2em] font-semibold hover:bg-neutral-200 transition-colors"
-          >
-            Shop Now
-          </Link>
-
-          {/* Mobile menu toggle button */}
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-neutral-300 hover:text-white p-1"
-            aria-label="Toggle Mobile Navigation"
+            className="lg:hidden text-white p-1.5 hover:text-neutral-300 focus:outline-none"
+            aria-label="Toggle Mobile Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* MOBILE HEADER MENU */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-[#080808]/98 backdrop-blur-2xl border-b border-white/10 p-6 animate-fade-in shadow-2xl">
-          <div className="flex flex-col space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-neutral-300 hover:text-white text-sm uppercase tracking-widest font-medium transition-colors flex items-center justify-between py-2 border-b border-white/5"
-              >
-                <span>{link.name}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-neutral-600" />
-              </Link>
-            ))}
-            <div className="pt-2 flex items-center justify-between text-xs text-neutral-400 uppercase tracking-wider">
+        <div className="lg:hidden w-full bg-[#080808]/98 backdrop-blur-2xl border-b border-white/10 px-6 py-6 animate-fade-in shadow-2xl">
+          <div className="flex flex-col space-y-1">
+            {navLinks.map((link) => {
+              const active = isLinkActive(link.href);
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-sm uppercase tracking-[0.2em] py-3 border-b border-white/5 flex items-center justify-between transition-colors ${
+                    active ? "text-white font-semibold" : "text-neutral-400 hover:text-white"
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  {active && (
+                    <span className="w-2 h-2 bg-white flex-shrink-0" />
+                  )}
+                </Link>
+              );
+            })}
+
+            <div className="pt-4 flex items-center justify-between text-xs uppercase tracking-widest text-neutral-400">
               <Link
                 href="/account"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-white flex items-center gap-2"
+                className="hover:text-white flex items-center gap-2 py-2"
               >
                 <User className="w-4 h-4" />
                 <span>My Account</span>
@@ -170,22 +183,48 @@ export function Navbar() {
               <Link
                 href="/cart"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-white flex items-center gap-2"
+                className="hover:text-white flex items-center gap-2 py-2"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Bag ({cartCount})</span>
               </Link>
             </div>
-            <Link
-              href="/shop"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3 bg-white text-black text-center text-xs uppercase tracking-[0.2em] font-semibold mt-2"
-            >
-              Explore Collection
-            </Link>
           </div>
         </div>
       )}
     </nav>
+  );
+}
+
+export function Navbar() {
+  return (
+    <Suspense
+      fallback={
+        <nav className="fixed top-0 w-full z-50 bg-[#080808]/95 backdrop-blur-md py-4 border-b border-white/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div className="flex-shrink-0">
+              <Link href="/" className="block py-1 focus:outline-none" aria-label="SPOGMAI Homepage">
+                <span className="text-xl sm:text-2xl font-serif font-bold tracking-[0.28em] uppercase text-white">
+                  SPOGMAI
+                </span>
+              </Link>
+            </div>
+            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+              <span className="text-xs uppercase tracking-[0.18em] text-neutral-400">Shop</span>
+              <span className="text-xs uppercase tracking-[0.18em] text-neutral-400">Collections</span>
+              <span className="text-xs uppercase tracking-[0.18em] text-neutral-400">Traditional</span>
+              <span className="text-xs uppercase tracking-[0.18em] text-neutral-400">Formal Wear</span>
+              <span className="text-xs uppercase tracking-[0.18em] text-neutral-400">Size Guide</span>
+              <span className="text-xs uppercase tracking-[0.18em] text-neutral-400">Track Order</span>
+              <span className="text-xs uppercase tracking-[0.18em] text-neutral-400">About</span>
+              <span className="text-xs uppercase tracking-[0.18em] text-neutral-400">Contact</span>
+            </div>
+            <div className="w-20" />
+          </div>
+        </nav>
+      }
+    >
+      <NavbarContent />
+    </Suspense>
   );
 }

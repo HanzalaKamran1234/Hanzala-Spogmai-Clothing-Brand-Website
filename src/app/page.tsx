@@ -72,34 +72,41 @@ export default function HomePage() {
 
               {/* Physical Boutique & Sourcing Footnote */}
               <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs text-neutral-400">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-white" />
-                  <span>RJ Shopping Mall, Gulshan-e-Jamal, Shop LG-81</span>
-                </div>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=RJ+Shopping+Mall+Gulshan-e-Johar+Shop+LG-81+Karachi+Pakistan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-white transition-colors group"
+                >
+                  <MapPin className="w-3.5 h-3.5 text-white flex-shrink-0" />
+                  <span className="underline underline-offset-4">
+                    RJ Shopping Mall, Gulshan-e-Johar, Shop LG-81, Karachi, Pakistan.
+                  </span>
+                </a>
                 <div>•</div>
                 <div>Cash on Delivery Nationwide</div>
               </div>
             </div>
 
-            {/* Right Column: Editorial Fashion Showcase */}
+            {/* Right Column: Clean Studio Product Photography Showcase (No Human Models) */}
             <div className="lg:col-span-5 relative flex items-center justify-center">
               <div className="relative z-10 border border-white/15 w-full max-w-[min(26rem,92vw)] mx-auto aspect-[3/4] bg-neutral-900 overflow-hidden shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=1200&auto=format&fit=crop"
-                  alt="SPOGMAI Signature Menswear Campaign"
+                  src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1200&auto=format&fit=crop"
+                  alt="SPOGMAI Signature Sartorial Formal Shirt"
                   fill
                   priority
-                  className="object-cover object-top"
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 400px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
                 <div className="absolute bottom-4 left-4 right-4 p-3 bg-black/80 backdrop-blur-md border border-white/10 text-xs">
                   <div className="font-serif text-white tracking-wider uppercase text-sm">
-                    The Obsidian Prince Coat
+                    Tailored Poplin Shirt
                   </div>
                   <div className="text-[10px] uppercase tracking-widest text-neutral-400 mt-0.5">
-                    100% Pure Raw Silk • Hand-Worked Bandhgala
+                    100% Egyptian Giza Cotton • Studio Flat Lay
                   </div>
                 </div>
               </div>
