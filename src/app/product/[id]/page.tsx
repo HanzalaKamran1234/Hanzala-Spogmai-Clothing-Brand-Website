@@ -8,6 +8,9 @@ import { PRODUCTS } from "@/data/products";
 import { ProductCard } from "@/components/product/ProductCard";
 import { useCart } from "@/context/CartContext";
 import { formatPKR } from "@/utils/format";
+import { SizeGuideModal } from "@/components/product/SizeGuideModal";
+import { CompleteTheLook } from "@/components/product/CompleteTheLook";
+import { ProductReviews } from "@/components/product/ProductReviews";
 import {
   Heart,
   ShoppingBag,
@@ -38,6 +41,7 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [activeTab, setActiveTab] = useState<"details" | "fabric" | "shipping">("details");
+  const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
 
   const isFavorited = isInWishlist(product.id);
 
@@ -210,9 +214,13 @@ export default function ProductDetailPage() {
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
                   <span className="text-neutral-400">Select Size:</span>
-                  <Link href="/faq#sizing" className="text-neutral-400 hover:text-white underline">
-                    Measurement & Size Chart
-                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setIsSizeGuideOpen(true)}
+                    className="text-emerald-400 hover:text-emerald-300 underline font-medium"
+                  >
+                    Interactive Size Guide & Fit Calculator →
+                  </button>
                 </div>
                 <div className="grid grid-cols-6 gap-2">
                   {product.sizes.map((sz) => (
@@ -231,7 +239,7 @@ export default function ProductDetailPage() {
                 </div>
                 {selectedSize === "Custom" && (
                   <p className="text-[11px] text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 p-2.5 rounded-xl">
-                    Custom order selected: Our master tailor will coordinate with you via WhatsApp after ordering to record your exact bust, waist, hip, and length measurements.
+                    Custom order selected: Our master tailor will coordinate with you via WhatsApp after ordering to record your exact chest, waist, shoulder pitch, and sleeve length measurements.
                   </p>
                 )}
               </div>
@@ -413,72 +421,11 @@ export default function ProductDetailPage() {
           </div>
         </div>
 
-        {/* Client Reviews Section */}
-        <section className="mt-24 pt-16 border-t border-white/10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-            <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] text-neutral-400">
-                Verified Customer Feedback
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-1">
-                Client Experiences ({product.reviewsCount})
-              </h2>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-neutral-400">
-              <span className="text-2xl font-bold text-white">{product.rating}</span>
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
-                ))}
-              </div>
-              <span>from 38 verified patrons in Pakistan</span>
-            </div>
-          </div>
+        {/* Complete The Look: Curated Sartorial Ensembles */}
+        <CompleteTheLook currentProduct={product} allProducts={PRODUCTS} />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all space-y-3">
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                ))}
-              </div>
-              <p className="text-xs text-neutral-300 leading-relaxed font-light">
-                "The hand-tailored bandhgala collar fits like an Italian bespoke suit. Pure 80g raw silk has a distinct weight and presence that turns heads. Arrived in Lahore within 36 hours via COD."
-              </p>
-              <div className="text-[11px] text-neutral-400 pt-2 border-t border-white/10">
-                <span className="text-white font-medium">Tariq Mansoor</span> • Gulberg, Lahore
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all space-y-3">
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                ))}
-              </div>
-              <p className="text-xs text-neutral-300 leading-relaxed font-light">
-                "Finding minimalist black formalwear in Pakistan that doesn't feel cheap is difficult. SPOGMAI mastered the silhouette. The worsted wool tuxedo drape is world-class."
-              </p>
-              <div className="text-[11px] text-neutral-400 pt-2 border-t border-white/10">
-                <span className="text-white font-medium">Bilal Siddiqui</span> • Clifton, Karachi
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all space-y-3">
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                ))}
-              </div>
-              <p className="text-xs text-neutral-300 leading-relaxed font-light">
-                "Ordered a custom size kurta and prince coat. The atelier called on WhatsApp within an hour to confirm shoulder pitch and sleeve length. Exceptional craftsmanship."
-              </p>
-              <div className="text-[11px] text-neutral-400 pt-2 border-t border-white/10">
-                <span className="text-white font-medium">Hamza Durrani</span> • F-8, Islamabad
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Client Reviews Section: Live Verified Reviews Engine */}
+        <ProductReviews productId={product.id} productName={product.name} />
 
         {/* Related Creations */}
         {relatedProducts.length > 0 && (
@@ -507,6 +454,12 @@ export default function ProductDetailPage() {
             </div>
           </section>
         )}
+        {/* Size Guide & Fit Recommender Modal */}
+        <SizeGuideModal
+          isOpen={isSizeGuideOpen}
+          onClose={() => setIsSizeGuideOpen(false)}
+          category={product.category}
+        />
       </div>
     </div>
   );

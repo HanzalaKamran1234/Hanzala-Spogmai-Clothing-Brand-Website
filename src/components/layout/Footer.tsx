@@ -171,8 +171,18 @@ export function Footer() {
             </h5>
             <ul className="space-y-2.5 text-neutral-400 text-xs">
               <li>
-                <Link href="/faq" className="hover:text-white transition-colors">
-                  Frequently Asked Questions
+                <Link href="/track" className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors">
+                  Track Your Order
+                </Link>
+              </li>
+              <li>
+                <Link href="/size-guide" className="hover:text-white transition-colors">
+                  Men's Size Guide & Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/returns/request" className="hover:text-white transition-colors">
+                  Submit Return / Exchange Request
                 </Link>
               </li>
               <li>
@@ -182,12 +192,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/returns" className="hover:text-white transition-colors">
-                  14-Day Return & Exchange
+                  14-Day Return & Exchange Policy
                 </Link>
               </li>
               <li>
-                <Link href="/faq#sizing" className="hover:text-white transition-colors">
-                  Men's Size Guide & Fitting
+                <Link href="/wishlist" className="hover:text-white transition-colors">
+                  Saved Wishlist
                 </Link>
               </li>
               <li>

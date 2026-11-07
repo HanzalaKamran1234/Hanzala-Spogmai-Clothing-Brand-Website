@@ -17,6 +17,10 @@ import {
   Tag,
   ArrowLeft,
   MessageCircle,
+  Smartphone,
+  CreditCard,
+  AlertCircle,
+  Check,
 } from "lucide-react";
 
 export default function CartPage() {
@@ -42,13 +46,25 @@ export default function CartPage() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("Karachi");
   const [notes, setNotes] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"COD" | "JazzCash" | "Easypaisa">("COD");
   const [submittingOrder, setSubmittingOrder] = useState(false);
   const [orderComplete, setOrderComplete] = useState<any | null>(null);
 
+  // City-based dynamic shipping
+  const majorCities = ["karachi", "lahore", "islamabad", "rawalpindi", "faisalabad", "peshawar", "multan", "sialkot"];
+  const isMajorCity = majorCities.includes(city.trim().toLowerCase());
   const freeShippingThreshold = 10000;
-  const shippingFee = cartSubtotal >= freeShippingThreshold || cartSubtotal === 0 ? 0 : 450;
+  const baseShippingRate = isMajorCity ? 250 : 350;
+  const shippingFee = cartSubtotal >= freeShippingThreshold || cartSubtotal === 0 ? 0 : baseShippingRate;
+
   const discountAmount = discountAmountServer || (cartSubtotal * discountPercent) / 100;
   const grandTotal = Math.max(0, cartSubtotal - discountAmount + shippingFee);
+
+  // Pakistani Phone Validation
+  const cleanPhone = phone.replace(/[^0-9]/g, "");
+  const isValidPakPhone =
+    (cleanPhone.startsWith("03") && cleanPhone.length === 11) ||
+    (cleanPhone.startsWith("923") && cleanPhone.length === 12);
 
   // Server-side promo validation
   const handleApplyPromo = async (e: React.FormEvent) => {
@@ -69,14 +85,14 @@ export default function CartPage() {
       } else {
         showToast(data.message || "Invalid voucher code", "info");
       }
-    } catch (err) {
+    } catch {
       // Fallback
-      if (promoCode.trim().toUpperCase() === "SPOGMAI10") {
+      if (promoCode.trim().toUpperCase() === "SPOGMAI10" || promoCode.trim().toUpperCase() === "LEGACY10") {
         setDiscountPercent(10);
         setPromoApplied(true);
-        showToast("Voucher SPOGMAI10 applied! 10% discount deducted.");
+        showToast("Voucher applied! 10% discount deducted.");
       } else {
-        showToast("Invalid code. Try 'SPOGMAI10' or 'LEGACY5000'", "info");
+        showToast("Invalid code. Try 'LEGACY10' or 'LEGACY5000'", "info");
       }
     }
   };
@@ -84,8 +100,13 @@ export default function CartPage() {
   // Real server-side order creation
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName || !phone || !address) {
+    if (!fullName.trim() || !phone.trim() || !address.trim()) {
       showToast("Please provide your name, phone, and complete delivery address.", "info");
+      return;
+    }
+
+    if (!isValidPakPhone) {
+      showToast("Please enter a valid 11-digit Pakistani mobile number (e.g. 0300 1234567).", "info");
       return;
     }
 
@@ -98,6 +119,7 @@ export default function CartPage() {
         shippingAddress: address.trim(),
         city,
         orderNotes: notes,
+        paymentMethod: paymentMethod === "COD" ? "Cash on Delivery" : paymentMethod,
         items: cart.map((item) => ({
           productId: item.product.id,
           size: item.selectedSize,
@@ -120,7 +142,7 @@ export default function CartPage() {
       } else {
         showToast(data.error || "Order placement failed.", "info");
       }
-    } catch (err) {
+    } catch {
       showToast("Failed to place order. Please try again.", "info");
     } finally {
       setSubmittingOrder(false);
@@ -151,19 +173,19 @@ export default function CartPage() {
           <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-left space-y-2.5">
             <div className="flex justify-between">
               <span className="text-neutral-500">Order Reference:</span>
-              <span className="text-white font-mono font-bold">{orderComplete.orderNumber}</span>
+              <span className="text-white font-mono font-bold">#{orderComplete.orderNumber}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-neutral-500">Payment Method:</span>
-              <span className="text-white">Cash on Delivery (COD)</span>
+              <span className="text-white">{orderComplete.paymentMethod}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-neutral-500">Delivery Destination:</span>
-              <span className="text-white">{orderComplete.city}, Pakistan</span>
+              <span className="text-white">{orderComplete.shippingAddress}, {orderComplete.city}</span>
             </div>
             <div className="flex justify-between border-t border-white/10 pt-2 font-semibold">
               <span className="text-neutral-300">Amount Payable at Door:</span>
-              <span className="text-emerald-400 text-sm font-bold">
+              <span className="text-emerald-400 text-sm font-bold font-mono">
                 {formatPKR(orderComplete.total)}
               </span>
             </div>
@@ -171,20 +193,29 @@ export default function CartPage() {
 
           <div className="space-y-2 pt-2">
             <a
-              href={`https://wa.me/923700349146?text=Hello%20SPOGMAI%20Concierge%2C%20I%20placed%20order%20${orderComplete.orderNumber}%20and%20would%20like%20to%20confirm.`}
+              href={`https://wa.me/923700349146?text=${encodeURIComponent(
+                `Salaam SPOGMAI Atelier, I placed order #${orderComplete.orderNumber} and would like to confirm my delivery measurements.`
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-black text-xs uppercase tracking-widest font-bold rounded-full transition-all flex items-center justify-center gap-2"
+              className="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-black text-xs uppercase tracking-widest font-bold rounded-full transition-all flex items-center justify-center gap-2 shadow-lg"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>Confirm on WhatsApp</span>
+              <span>Confirm on WhatsApp (+92 370 0349146)</span>
             </a>
 
             <Link
-              href="/shop"
-              className="w-full py-3 bg-white/10 text-white text-xs uppercase tracking-widest font-bold rounded-full hover:bg-white/20 transition-colors block"
+              href={`/track?order=${orderComplete.orderNumber}`}
+              className="w-full py-3 bg-white/10 text-white text-xs uppercase tracking-widest font-bold rounded-full hover:bg-white/20 transition-colors block text-center"
             >
-              Return to Storefront
+              Live Order Milestones & Tracking →
+            </Link>
+
+            <Link
+              href="/shop"
+              className="text-xs text-white/50 hover:text-white pt-2 block text-center"
+            >
+              Continue Browsing Atelier
             </Link>
           </div>
         </div>
@@ -199,112 +230,127 @@ export default function CartPage() {
         <span className="text-[11px] uppercase tracking-[0.3em] text-neutral-400 font-mono">
           Gentlemen's Shopping Bag
         </span>
-        <h1 className="text-3xl sm:text-5xl font-serif font-bold uppercase tracking-tight">
-          Your Curated Selection
+        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-wide">
+          Atelier Checkout & Bag
         </h1>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         {cart.length === 0 ? (
-          <div className="py-24 text-center max-w-md mx-auto space-y-6">
-            <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-neutral-500">
-              <ShoppingBag className="w-10 h-10" />
+          <div className="text-center py-24 space-y-6 max-w-md mx-auto">
+            <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 text-neutral-400 mx-auto flex items-center justify-center">
+              <ShoppingBag className="w-9 h-9" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-2xl font-serif">Your bag is currently empty</h2>
+              <h2 className="text-xl font-serif font-bold">Your Bag is Empty</h2>
               <p className="text-xs text-neutral-400 font-light">
-                Explore our raw silk prince coats, Irish linen kurta sets, and Italian wool evening suiting.
+                Discover bespoke cut prince coats, bandhgalas, and Italian wool tuxedos crafted exclusively for men.
               </p>
             </div>
             <Link
               href="/shop"
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-black text-xs uppercase tracking-widest font-bold rounded-full hover:bg-neutral-200 transition-all shadow-lg"
             >
-              <span>Explore Menswear</span>
+              <span>Explore Menswear Collection</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* Left: Items list (7 cols) */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-white/10 text-xs text-neutral-400">
-                <span>{cart.length} distinct item(s) in bag</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* Left: Cart Items List (7 cols) */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="flex justify-between items-center pb-4 border-b border-white/10 text-xs text-neutral-400">
+                <span>{cart.length} Bespoke Creation(s) Selected</span>
                 <button
                   onClick={clearCart}
-                  className="hover:text-rose-400 underline transition-colors"
+                  className="hover:text-red-400 transition-colors flex items-center gap-1"
                 >
-                  Empty Bag
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Clear Bag</span>
                 </button>
               </div>
 
               <div className="space-y-4">
                 {cart.map((item) => (
                   <div
-                    key={`${item.product.id}-${item.selectedSize}`}
-                    className="flex flex-col sm:flex-row gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/25 transition-all"
+                    key={`${item.product.id}-${item.selectedSize}-${item.selectedColor}`}
+                    className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 flex gap-4 sm:gap-6 items-center"
                   >
-                    <div className="relative w-24 h-32 rounded-xl overflow-hidden bg-neutral-900 flex-shrink-0">
+                    <div className="relative w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden bg-neutral-900 flex-shrink-0 border border-white/10">
                       <Image
-                        src={item.product.images[0]}
+                        src={item.product.images[0] || ""}
                         alt={item.product.name}
                         fill
-                        className="object-cover object-top"
-                        sizes="100px"
+                        className="object-cover"
                       />
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex justify-between items-start gap-2">
-                          <Link href={`/product/${item.product.id}`}>
-                            <h3 className="text-base font-serif font-semibold text-white hover:text-neutral-300 transition-colors">
-                              {item.product.name}
-                            </h3>
-                          </Link>
-                          <button
-                            onClick={() => removeFromCart(item.product.id, item.selectedSize)}
-                            className="text-neutral-500 hover:text-rose-400 transition-colors p-1"
-                            title="Remove item"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                        <p className="text-xs text-neutral-400 mt-0.5 line-clamp-1">{item.product.subtitle}</p>
-                        <div className="flex items-center gap-3 mt-2 text-xs text-neutral-400">
-                          <span>Size: <strong className="text-white">{item.selectedSize}</strong></span>
-                          <span>•</span>
-                          <span>{item.product.fabric.split(" ")[0]}</span>
-                        </div>
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <span className="text-[10px] uppercase tracking-widest text-neutral-400 block font-mono">
+                        {item.product.category}
+                      </span>
+                      <Link
+                        href={`/product/${item.product.id}`}
+                        className="text-sm font-serif font-bold text-white hover:text-neutral-300 transition-colors line-clamp-1"
+                      >
+                        {item.product.name}
+                      </Link>
+
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-400 pt-1">
+                        <span>
+                          Size: <strong className="text-white">{item.selectedSize}</strong>
+                        </span>
+                        {item.selectedColor && (
+                          <span>
+                            Color: <strong className="text-white">{item.selectedColor}</strong>
+                          </span>
+                        )}
                       </div>
 
-                      <div className="flex items-center justify-between pt-4 mt-2 border-t border-white/5">
-                        <div className="flex items-center border border-white/15 rounded-full px-3 py-1 bg-black">
-                          <button
-                            onClick={() => updateQuantity(item.product.id, item.selectedSize, item.quantity - 1)}
-                            className="text-neutral-400 hover:text-white px-1 text-sm"
-                          >
-                            <Minus className="w-3 h-3" />
-                          </button>
-                          <span className="text-xs font-semibold px-3">{item.quantity}</span>
-                          <button
-                            onClick={() => updateQuantity(item.product.id, item.selectedSize, item.quantity + 1)}
-                            className="text-neutral-400 hover:text-white px-1 text-sm"
-                          >
-                            <Plus className="w-3 h-3" />
-                          </button>
-                        </div>
+                      <div className="text-xs font-mono font-bold text-white pt-1">
+                        {formatPKR(item.product.price)}
+                      </div>
+                    </div>
 
-                        <div className="text-right">
-                          <p className="text-sm font-semibold text-white">
-                            {formatPKR(item.product.price * item.quantity)}
-                          </p>
-                          {item.quantity > 1 && (
-                            <p className="text-[10px] text-neutral-500">
-                              {formatPKR(item.product.price)} each
-                            </p>
-                          )}
-                        </div>
+                    <div className="flex flex-col items-end justify-between self-stretch">
+                      <button
+                        onClick={() =>
+                          removeFromCart(item.product.id, item.selectedSize)
+                        }
+                        className="text-neutral-500 hover:text-red-400 p-1 transition-colors"
+                        title="Remove"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+
+                      <div className="flex items-center border border-white/20 rounded-full px-2 py-0.5 bg-black/60">
+                        <button
+                          onClick={() =>
+                            updateQuantity(
+                              item.product.id,
+                              item.selectedSize,
+                              item.quantity - 1
+                            )
+                          }
+                          className="text-neutral-400 hover:text-white px-1 text-xs"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="text-xs font-semibold px-2 font-mono">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() =>
+                            updateQuantity(
+                              item.product.id,
+                              item.selectedSize,
+                              item.quantity + 1
+                            )
+                          }
+                          className="text-neutral-400 hover:text-white px-1 text-xs"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -314,39 +360,45 @@ export default function CartPage() {
               <div className="pt-4">
                 <Link
                   href="/shop"
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-400 hover:text-white"
+                  className="text-xs uppercase tracking-widest text-neutral-400 hover:text-white flex items-center gap-2 transition-colors"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>Continue Exploring Menswear</span>
+                  <span>Explore More Menswear Pieces</span>
                 </Link>
               </div>
             </div>
 
-            {/* Right: Order Summary & Checkout Form (5 cols) */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="rounded-3xl bg-white/5 border border-white/10 p-6 sm:p-8 space-y-5">
-                <h2 className="text-xl font-serif font-bold text-white pb-3 border-b border-white/10">
+            {/* Right: Order Summary & Checkout (5 cols) */}
+            <div className="lg:col-span-5">
+              <div className="sticky top-28 p-6 sm:p-8 rounded-3xl bg-[#0b0b0b] border border-white/15 space-y-6 shadow-2xl">
+                <h2 className="text-lg font-serif font-bold tracking-wide border-b border-white/10 pb-4">
                   Order Summary
                 </h2>
 
-                {/* Promo Code Input */}
-                <form onSubmit={handleApplyPromo} className="flex gap-2">
-                  <div className="relative flex-1">
-                    <Tag className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                {/* Voucher Code */}
+                <form onSubmit={handleApplyPromo} className="space-y-2">
+                  <label className="text-[11px] uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
+                    <Tag className="w-3 h-3" />
+                    <span>Atelier Promo Voucher</span>
+                  </label>
+                  <div className="flex gap-2">
                     <input
                       type="text"
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
-                      placeholder="Promo code (Try: SPOGMAI10)"
-                      className="w-full bg-black/60 border border-white/15 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white uppercase font-mono"
+                      placeholder="e.g. LEGACY10"
+                      className="flex-1 bg-black/60 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white uppercase placeholder-neutral-500 focus:outline-none focus:border-white font-mono"
                     />
+                    <button
+                      type="submit"
+                      className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs uppercase tracking-wider rounded-xl transition-colors font-semibold"
+                    >
+                      Apply
+                    </button>
                   </div>
-                  <button
-                    type="submit"
-                    className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition-colors"
-                  >
-                    Apply
-                  </button>
+                  <span className="text-[10px] text-neutral-500 block">
+                    Use code <strong className="text-neutral-300">LEGACY10</strong> for 10% courtesy discount.
+                  </span>
                 </form>
 
                 {/* Price Breakdown */}
@@ -364,8 +416,10 @@ export default function CartPage() {
                   )}
 
                   <div className="flex justify-between">
-                    <span>Nationwide Express Delivery</span>
-                    <span className="text-white">
+                    <span>
+                      Express Courier Delivery ({city})
+                    </span>
+                    <span className="text-white font-mono">
                       {shippingFee === 0 ? "Complimentary" : formatPKR(shippingFee)}
                     </span>
                   </div>
@@ -378,7 +432,7 @@ export default function CartPage() {
 
                   <div className="flex justify-between text-base font-serif font-bold text-white pt-3 border-t border-white/10">
                     <span>Grand Total (PKR)</span>
-                    <span>{formatPKR(grandTotal)}</span>
+                    <span className="font-mono">{formatPKR(grandTotal)}</span>
                   </div>
                 </div>
 
@@ -421,16 +475,27 @@ export default function CartPage() {
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
-                            Phone / WhatsApp *
-                          </label>
+                          <div className="flex justify-between items-center mb-1">
+                            <label className="text-[11px] uppercase tracking-wider text-neutral-400 block">
+                              Phone / WhatsApp *
+                            </label>
+                            {phone && (
+                              <span className={`text-[10px] ${isValidPakPhone ? "text-emerald-400" : "text-amber-400"}`}>
+                                {isValidPakPhone ? "✓ Valid" : "Must be 03XX"}
+                              </span>
+                            )}
+                          </div>
                           <input
                             type="tel"
                             required
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            placeholder="e.g. 0370 0349146"
-                            className="w-full bg-black/60 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white"
+                            placeholder="0300 1234567"
+                            className={`w-full bg-black/60 border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none font-mono ${
+                              phone && !isValidPakPhone
+                                ? "border-amber-500/50"
+                                : "border-white/15 focus:border-white"
+                            }`}
                           />
                         </div>
                         <div>
@@ -450,36 +515,50 @@ export default function CartPage() {
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
-                            City *
+                            City in Pakistan *
                           </label>
                           <select
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                             className="w-full bg-neutral-900 border border-white/15 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none cursor-pointer"
                           >
-                            <option value="Karachi">Karachi</option>
-                            <option value="Lahore">Lahore</option>
-                            <option value="Islamabad">Islamabad</option>
-                            <option value="Rawalpindi">Rawalpindi</option>
-                            <option value="Faisalabad">Faisalabad</option>
-                            <option value="Peshawar">Peshawar</option>
-                            <option value="Multan">Multan</option>
-                            <option value="Quetta">Quetta</option>
-                            <option value="Sialkot">Sialkot</option>
-                            <option value="Gujranwala">Gujranwala</option>
-                            <option value="Other">Other Nationwide City</option>
+                            <option value="Karachi">Karachi (Rs 250)</option>
+                            <option value="Lahore">Lahore (Rs 250)</option>
+                            <option value="Islamabad">Islamabad (Rs 250)</option>
+                            <option value="Rawalpindi">Rawalpindi (Rs 250)</option>
+                            <option value="Faisalabad">Faisalabad (Rs 250)</option>
+                            <option value="Peshawar">Peshawar (Rs 250)</option>
+                            <option value="Multan">Multan (Rs 250)</option>
+                            <option value="Sialkot">Sialkot (Rs 250)</option>
+                            <option value="Gujranwala">Gujranwala (Rs 350)</option>
+                            <option value="Quetta">Quetta (Rs 350)</option>
+                            <option value="Hyderabad">Hyderabad (Rs 350)</option>
+                            <option value="Abbottabad">Abbottabad (Rs 350)</option>
+                            <option value="Other">Other Cities (Rs 350)</option>
                           </select>
                         </div>
 
                         <div>
                           <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
-                            Payment Method
+                            Payment Mode
                           </label>
-                          <div className="px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-xs text-emerald-400 font-medium">
-                            Cash On Delivery (COD)
-                          </div>
+                          <select
+                            value={paymentMethod}
+                            onChange={(e) => setPaymentMethod(e.target.value as any)}
+                            className="w-full bg-neutral-900 border border-white/15 rounded-xl px-3 py-2.5 text-xs text-emerald-400 focus:outline-none cursor-pointer font-medium"
+                          >
+                            <option value="COD">Cash on Delivery (COD)</option>
+                            <option value="JazzCash">JazzCash (Direct)</option>
+                            <option value="Easypaisa">Easypaisa (Direct)</option>
+                          </select>
                         </div>
                       </div>
+
+                      {paymentMethod !== "COD" && (
+                        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300">
+                          Transfer directly to SPOGMAI Merchant Account after placing order. Our concierge will send the payment prompt to your WhatsApp.
+                        </div>
+                      )}
 
                       <div>
                         <label className="text-[11px] uppercase tracking-wider text-neutral-400 block mb-1">
@@ -517,7 +596,7 @@ export default function CartPage() {
                         <span>
                           {submittingOrder
                             ? "Registering Order..."
-                            : `Place Cash on Delivery Order • ${formatPKR(grandTotal)}`}
+                            : `Place Order • ${formatPKR(grandTotal)}`}
                         </span>
                       </button>
                     </form>

@@ -29,6 +29,8 @@ export function Navbar() {
     { name: "Collections", href: "/collections" },
     { name: "Traditional Menswear", href: "/shop?category=Traditional+Menswear" },
     { name: "Formal Wear", href: "/shop?category=Formal+Wear" },
+    { name: "Size Guide", href: "/size-guide" },
+    { name: "Track Order", href: "/track" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -93,9 +95,10 @@ export function Navbar() {
 
           {/* Wishlist Trigger */}
           <Link
-            href="/shop?filter=wishlist"
+            href="/wishlist"
             className="relative text-gray-300 hover:text-white transition-colors p-1.5 hidden sm:block"
             aria-label="Wishlist"
+            title="Wishlist"
           >
             <Heart className="w-4 h-4" />
             {wishlist.length > 0 && (

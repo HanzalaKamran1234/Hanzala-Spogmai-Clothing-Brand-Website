@@ -21,6 +21,7 @@ export interface Product {
   stockQuantity: number;
   rating: number;
   reviewsCount: number;
+  stylingPairings?: string[]; // IDs of products that complete the look
   createdAt?: string;
   updatedAt?: string;
 }
@@ -63,6 +64,20 @@ export interface OrderItem {
   color?: string;
 }
 
+export interface CourierInfo {
+  courierName: "Trax" | "PostEx" | "Leopards" | "TCS" | "CallCourier";
+  trackingNumber: string;
+  trackingUrl: string;
+  dispatchedAt?: string;
+}
+
+export interface OrderMilestone {
+  title: string;
+  description: string;
+  timestamp: string;
+  completed: boolean;
+}
+
 export interface Order {
   id: string;
   orderNumber: string;
@@ -73,9 +88,12 @@ export interface Order {
   city: string;
   postalCode?: string;
   orderNotes?: string;
-  paymentMethod: "Cash on Delivery" | "Card" | "Bank Transfer";
+  paymentMethod: "Cash on Delivery" | "JazzCash" | "Easypaisa" | "Card" | "Bank Transfer";
   paymentStatus: "Pending" | "Paid" | "Refunded";
   status: "Pending" | "Confirmed COD" | "Processing" | "Shipped" | "Delivered" | "Cancelled";
+  codVerificationStatus?: "Unverified" | "WhatsApp Sent" | "Verified" | "Failed";
+  courierInfo?: CourierInfo;
+  milestones?: OrderMilestone[];
   items: OrderItem[];
   subtotal: number;
   shippingFee: number;
@@ -95,6 +113,10 @@ export interface Customer {
   address: string;
   totalOrders: number;
   totalSpent: number;
+  tier?: "VIP Patron" | "Gold" | "Frequent" | "New";
+  codRisk?: "Low" | "Medium" | "High";
+  notes?: string;
+  tags?: string[];
   createdAt: string;
 }
 
@@ -117,6 +139,85 @@ export interface Review {
   city: string;
   rating: number;
   comment: string;
+  sizePurchased?: string;
   date: string;
   verified: boolean;
+  helpfulCount?: number;
+}
+
+export interface ReturnRequest {
+  id: string;
+  ticketNumber: string;
+  orderNumber: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  items: {
+    productId: string;
+    productName: string;
+    size: string;
+    quantity: number;
+  }[];
+  reason: "Size too small" | "Size too large" | "Fabric / Style preference" | "Defective / Damaged" | "Incorrect item received";
+  action: "Exchange Size" | "Refund to Bank Account" | "Refund to JazzCash / Easypaisa" | "Store Credit";
+  replacementSize?: string;
+  bankDetails?: {
+    bankName: string;
+    accountTitle: string;
+    accountNumber: string;
+  };
+  status: "Pending Review" | "Approved" | "Pickup Scheduled" | "Item Received" | "Completed" | "Rejected";
+  courierTracking?: string;
+  adminNotes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SiteSettings {
+  announcementBarText: string;
+  isAnnouncementActive: boolean;
+  heroHeadline: string;
+  heroSubHeadline: string;
+  heroDescription: string;
+  promoBannerActive: boolean;
+  promoBannerText: string;
+  promoBannerCode: string;
+  freeShippingThreshold: number;
+  shippingRates: {
+    majorCities: number;
+    restOfPakistan: number;
+  };
+}
+
+export interface AdminNotification {
+  id: string;
+  type: "order" | "low_stock" | "return" | "cod_alert" | "system";
+  title: string;
+  message: string;
+  link?: string;
+  read: boolean;
+  createdAt: string;
+}
+
+export interface SalesAnalytics {
+  totalRevenue: number;
+  dailyRevenue: number;
+  weeklyRevenue: number;
+  monthlyRevenue: number;
+  totalOrders: number;
+  averageOrderValue: number;
+  conversionRate: number;
+  codVerificationRate: number;
+  bestSellingProducts: {
+    id: string;
+    name: string;
+    salesCount: number;
+    revenue: number;
+    image: string;
+  }[];
+  sizeBreakdown: {
+    size: string;
+    percentage: number;
+    count: number;
+  }[];
 }
