@@ -3,7 +3,7 @@
 import React from "react";
 
 export function AnnouncementBar() {
-  const text = "WEDNESDAY OPENING | 11.11 BIGGEST SALE AT RJ SHOPPING MALL";
+  const text = "WEDNESDAY OPENING | 11.11 BIGGEST SALE AT RJ SHOPPING MALL SHOP LG-81 GULSHAN E JOHAR";
   const items = [text, text, text, text, text, text];
 
   return (
@@ -12,7 +12,7 @@ export function AnnouncementBar() {
       className="relative w-full bg-[#D71920] text-white overflow-hidden select-none z-50 h-7 sm:h-8 flex items-center border-b border-black/10 shadow-sm"
     >
       <div className="flex w-full overflow-hidden">
-        <div className="flex whitespace-nowrap items-center will-change-transform animate-marquee-ltr">
+        <div className="flex whitespace-nowrap items-center will-change-transform animate-marquee-rtl">
           {/* First set of repeating announcements */}
           <div className="flex items-center shrink-0">
             {items.map((item, idx) => (
