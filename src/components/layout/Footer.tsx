@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, MessageCircle, Phone, MapPin, Globe } from "lucide-react";
+import { ArrowUpRight, MessageCircle, Phone, MapPin, Globe, Mail } from "lucide-react";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -237,6 +237,15 @@ export function Footer() {
                 >
                   <Phone className="w-3.5 h-3.5" />
                   <span>03700349146</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:contact@spogmai.store"
+                  className="flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>contact@spogmai.store</span>
                 </a>
               </li>
 

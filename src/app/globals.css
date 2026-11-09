@@ -93,3 +93,24 @@ body {
 .animate-fade-in {
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Continuous Left-to-Right Moving Announcement Marquee */
+@keyframes marquee-ltr {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.animate-marquee-ltr {
+  animation: marquee-ltr 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-ltr {
+    animation: none !important;
+    transform: none !important;
+  }
+}

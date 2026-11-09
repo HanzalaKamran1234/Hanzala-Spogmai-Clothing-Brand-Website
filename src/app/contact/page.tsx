@@ -60,7 +60,7 @@ export default function ContactPage() {
               </a>
             </div>
 
-            {/* Official Phone & Hours */}
+            {/* Official Phone, Email & Hours */}
             <div className="p-6 bg-neutral-900/50 border border-white/10 space-y-5 text-xs text-neutral-300">
               <div className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-white mt-0.5" />
@@ -68,6 +68,19 @@ export default function ContactPage() {
                   <p className="font-semibold text-white">Official Telephone</p>
                   <a href="tel:+923700349146" className="text-neutral-300 hover:text-white transition-colors block mt-0.5 font-mono text-sm">
                     03700349146 / +92 370 0349146
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 pt-3 border-t border-white/5">
+                <Mail className="w-4 h-4 text-white mt-0.5" />
+                <div>
+                  <p className="font-semibold text-white">Official Email</p>
+                  <a
+                    href="mailto:contact@spogmai.store"
+                    className="text-neutral-300 hover:text-white transition-colors block mt-0.5 font-mono text-sm underline-offset-4 hover:underline"
+                  >
+                    contact@spogmai.store
                   </a>
                 </div>
               </div>

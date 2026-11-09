@@ -40,8 +40,10 @@ export default function RootLayout({
       </head>
       <body className="bg-[#080808] text-white min-h-screen flex flex-col antialiased selection:bg-white selection:text-black">
         <CartProvider>
-          <AnnouncementBar />
-          <Navbar />
+          <header className="fixed top-0 left-0 right-0 w-full z-50">
+            <AnnouncementBar />
+            <Navbar />
+          </header>
           <main className="flex-grow">{children}</main>
           <Footer />
           <CartDrawer />

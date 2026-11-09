@@ -3,18 +3,47 @@
 import React from "react";
 
 export function AnnouncementBar() {
-  const text = "CELEBRATE OUR GRAND OPENING — THE BIGGEST SALE AT RJ SHOPPING MALL!";
+  const text = "WEDNESDAY OPENING | 11.11 BIGGEST SALE AT RJ SHOPPING MALL";
+  const items = [text, text, text, text, text, text];
 
   return (
-    <div className="relative bg-[#000000] border-b border-white/10 text-white py-2.5 overflow-hidden text-[11px] sm:text-xs uppercase tracking-[0.22em] select-none z-40">
-      <div className="flex w-fit whitespace-nowrap animate-marquee items-center gap-12">
-        {[text, text, text, text, text, text].map((item, idx) => (
-          <div key={idx} className="flex items-center gap-4">
-            <span className="inline-block w-1 h-1 bg-white"></span>
-            <span className="font-semibold tracking-[0.2em]">{item}</span>
+    <aside
+      aria-label="Store Announcement"
+      className="relative w-full bg-[#D71920] text-white overflow-hidden select-none z-50 h-7 sm:h-8 flex items-center border-b border-black/10 shadow-sm"
+    >
+      <div className="flex w-full overflow-hidden">
+        <div className="flex whitespace-nowrap items-center will-change-transform animate-marquee-ltr">
+          {/* First set of repeating announcements */}
+          <div className="flex items-center shrink-0">
+            {items.map((item, idx) => (
+              <span key={`a-${idx}`} className="inline-flex items-center mx-5 sm:mx-8">
+                <span className="text-[10px] sm:text-[11px] md:text-xs font-sans font-bold tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase">
+                  {item}
+                </span>
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-white/70 ml-5 sm:ml-8"
+                  aria-hidden="true"
+                />
+              </span>
+            ))}
           </div>
-        ))}
+
+          {/* Second identical set for seamless infinite loop */}
+          <div className="flex items-center shrink-0" aria-hidden="true">
+            {items.map((item, idx) => (
+              <span key={`b-${idx}`} className="inline-flex items-center mx-5 sm:mx-8">
+                <span className="text-[10px] sm:text-[11px] md:text-xs font-sans font-bold tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase">
+                  {item}
+                </span>
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-white/70 ml-5 sm:ml-8"
+                  aria-hidden="true"
+                />
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </aside>
   );
 }
